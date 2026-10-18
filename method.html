@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>データの作り方と限界 | 株主優待の条件データベース</title>
+<meta name="description" content="株主優待のデータをどう作っているか、読み取りの限界と既知の誤り。">
+<link rel="canonical" href="https://yutai-joken.com/method.html">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="index.html">株主優待の条件データベース</a>
+<nav class="site-nav" aria-label="主なページ"><a href="list/index.html">条件で探す</a><a href="guide/rights-last-day.html">権利付き最終日の数え方</a><a href="guide/ex-rights-stats.html">権利落ちの統計</a><a href="method.html">作り方と限界</a></nav>
+</div></header>
+<main id="main" class="wrap">
+<nav class="crumbs" aria-label="現在地"><a href="index.html">トップ</a> ＞ データの作り方と限界</nav>
+<h1>データの作り方と限界</h1>
+
+<!-- 広告の置き場所 -->
+<h2>データの作り方</h2>
+<ol>
+<li>EDINET（金融庁の開示システム）の API から、上場会社の有価証券報告書（有報）を取得します。取得するのは各社の最新の有報です。</li>
+<li>有報の「株式事務の概要」にある「株主に対する特典」欄を、規則（プログラム）で読み取ります。優待の有無・権利月・基準日・必要株数・継続保有の条件・優待の種類・金額を項目にします。</li>
+<li>基準日から、権利付き最終日と権利落ち日を計算します。取引所の休業日は、祝日法の決まりと年末年始の休業日から計算しています。</li>
+<li>上場している会社だけを載せます。上場を終えた会社のページは作りません。</li>
+<li>特典欄の文章は提出会社が書いたものなので、転載しません。載せるのは項目（日付・株数・条件・種類・金額の推定・印）だけです。</li>
+</ol>
+<h2>項目の意味</h2>
+<ul>
+<li><strong>基準日</strong>：優待の権利が確定する日。月ごとに日付を読み取り、「末日」は月の最後の日として扱います。</li>
+<li><strong>必要株数</strong>：優待を受けられる最小の株数（最小の段）。</li>
+<li><strong>継続保有（必須）</strong>：優待を受けるのに必須の継続保有期間のうち、読み取れた最短のもの。</li>
+<li><strong>長期優遇</strong>：必須ではないが、長く持つと優待が増える・追加される記載があるもの。</li>
+<li><strong>優待の種類</strong>：特典欄の語から決めた12種類と「不明」。1社が複数の種類に入ります。</li>
+<li><strong>金額</strong>：本文に金額・枚数・ポイントの換算が書かれた優待だけを円に換算した推定。1回は最小の段、1年は回数をかけたものです。</li>
+<li><strong>印</strong>：新設・変更・廃止などの語が特典欄にあること、決算に株主優待引当金の項目があること、基準日を推定で補ったこと、など。</li>
+</ul>
+<h2>限界（先にお読みください）</h2>
+<ul>
+<li>有報は年に1回です。期中に優待が新設・変更・廃止されても、次の有報が出るまで（最大1年）は反映されません。</li>
+<li>有報の特典欄に優待を書かない会社があります。優待を実施していても載っていない会社があるため、このサイトは「有報に書かれている優待の一覧」です。印「引当金あり」は、優待があった手がかりにすぎません。</li>
+<li>読み取りは規則による推定で、誤りが残ります。基準日・株数・金額を間違えることがあります。印が付いた項目は、特に確かさが低いものです。</li>
+<li>割引率や品名だけの優待、抽選の優待は金額を読めません。複数の段がある優待は最小の段を載せています。</li>
+<li>選択式の優待（いずれかを選ぶ）や、基準日が複数あっても優待は年1回の会社では、年の金額が実際と違うことがあります。</li>
+<li>権利付き最終日は、通常の営業日の数え方による計算です。取引所の臨時休業・売買停止、祝日法の改正は反映できません。</li>
+</ul>
+<h2>既知の誤り</h2>
+<p>見つけた誤りは規則を直して反映していますが、直せていない型が残っています（上の「限界」に書いた、選択式の優待の年額など）。誤りを見つけたときは、<a href="contact.html">お問い合わせ</a>から、会社名・コード・違っている項目・根拠（有報のどこに何と書かれているか）を添えてお知らせください。</p>
+<h2>更新</h2>
+<p>データの更新は月1回ほどです。各ページに、最終確認日とEDINET の書類IDを載せています。</p>
+</main>
+<aside class="note-cta"><div class="wrap">
+<p>有価証券報告書から優待の条件を読み取る手順や、優待の金額を自分で計算するためのテンプレートは、note で案内しています。</p>
+<p><a href="https://note.com/kabu_azusa" rel="noopener">note（https://note.com/kabu_azusa）を開く</a></p>
+</div></aside>
+<footer class="site-footer"><div class="wrap">
+<p><a href="sources.html">出典</a> ・ <a href="disclaimer.html">免責</a> ・ <a href="operator.html">運営者情報</a> ・ <a href="privacy.html">プライバシーポリシー</a> ・ <a href="contact.html">お問い合わせ</a></p>
+<p>出典: EDINET（https://disclosure2.edinet-fsa.go.jp/）の有価証券報告書をもとに、運営者が項目を抽出・加工し、日付などを計算・推定したものです（公共データ利用規約 第1.0版（PDL1.0））。推定を含みます。投資の勧誘・助言ではありません。</p>
+<p>このサイトの作成日: 2026-10-18（データの更新は月1回ほどです）</p>
+</div></footer>
+
+</body>
+</html>
