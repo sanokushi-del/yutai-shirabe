@@ -29,6 +29,12 @@ th.group{text-align:center;border-bottom:1px solid var(--border)}
 .ref{color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:8px;background:var(--surface);margin:10px 0}
+.next-day{margin:0 0 12px;padding:8px 12px;background:var(--accent-weak);border-radius:8px;font-weight:600}
+.next-day a{white-space:nowrap}
+details.day{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin:8px 0;scroll-margin-top:8px}
+details.day>summary{cursor:pointer;padding:10px 14px;font-weight:600;line-height:1.5}
+details.day[open]>summary{border-bottom:1px solid var(--border)}
+details.day>.table-wrap{margin:0;border:none;border-radius:0 0 8px 8px}
 table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
 th{background:var(--accent-weak);font-weight:600;white-space:nowrap}
@@ -68,5 +74,6 @@ button:hover{background:var(--accent-weak)}
   dl.summary>div{padding:4px 8px}
   dl.summary dd{font-size:15px}
   .summary-note{font-size:12px;line-height:1.5}
+  details.day>summary{padding:12px}
   .site-header .wrap{padding-top:8px;padding-bottom:8px}
 }
