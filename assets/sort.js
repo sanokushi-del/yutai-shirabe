@@ -9,8 +9,9 @@
   var heads = table ? Array.prototype.slice.call(table.querySelectorAll('thead th[data-sort]')) : [];
   if (!tbody || !heads.length) { return; }
   // 年額の推定の列は num（data-v だけで比べる）なので、理由の言い方（「割引」「ポイント」「記載なし」「1回 1,000円」など）が出ているセルは data-v が無く、自然に値なしで最後になる。
-  // 理由の言い方はここ（文字の列の値なし）に足さない: 主な種類の列には「割引」「ポイント」が本物の値として出るため（改善案4 V-2）
-  var EMPTY = ['', '—', '読み取れず', '条件の記載なし'];             // 文字の列で「値なし」とみなす表示（継続保有の「条件の記載なし」も、今までの「—」と同じく最後）
+  // 理由の言い方はここ（文字の列の値なし）に足さない: 主な種類の列には「割引」「ポイント」が本物の値として出るため（改善案4 V-2）。
+  // ただし「記載なし」は足す: 主な種類の「記載なし」（改善案6 X-6）は本物の種類ではなく、年額の列は num で data-v だけを見るので影響しない
+  var EMPTY = ['', '—', '読み取れず', '条件の記載なし', '記載なし'];             // 文字の列で「値なし」とみなす表示（継続保有の「条件の記載なし」も、今までの「—」と同じく最後）
   var collator = (typeof Intl === 'object' && Intl.Collator) ? new Intl.Collator('ja', { numeric: true }) : null;     // 数は大きさで比べる（「1年」「2年」「10年」の順）
   function compareText(x, y) { return collator ? collator.compare(x, y) : x.localeCompare(y, 'ja', { numeric: true }); }
 
