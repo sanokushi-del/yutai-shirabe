@@ -12,6 +12,8 @@
   var DATES_COLUMN = 2;
   var SHORT = {"次の権利付き最終日": "最終日", "必要株数": "株数", "年額の推定": "年額", "主な種類": "種類"};             // スマホのカードで値の直前に出す短い項目名（data-short）。無い項目は data-label を使う
   var HOLD_NONE = "条件の記載なし";     // 継続保有が必須も長期優遇も読めなかった会社の表示（Python の site.HOLD_NONE_TEXT。一覧ページと同じ言い方）
+  var YEAR_REASON = {"d": "割引", "p": "ポイント", "n": "記載なし", "u": "読み取れず"}; // 年額が無い会社の理由の短い言い方（companies.js の r の値 → 文字。Python の site.YEAR_REASON_SHORT。一覧ページの表と同じ言い方）
+  var PER_TIME_HEAD = "1回 ";   // r が t（1回の金額だけ読めた会社）のときの表示「1回 1,000円」の頭。金額は a
   var shown = FIRST;
   var matched = [];
   var f = { text: $('f-text'), month: $('f-month'), shares: $('f-shares'), hold: $('f-hold'), cat: $('f-cat'),
@@ -57,6 +59,11 @@
     var wd = '日月火水木金土'.charAt(new Date(Date.UTC(y, mo - 1, d)).getUTCDay());
     return (y === THIS_YEAR ? '' : y + '年') + mo + '月' + d + '日（' + wd + '）';
   }
+  // 年額が無い会社（y が null）の表示。理由の種類 r の短い言い方（一覧ページの表と同じ）。1回の金額だけ読めた会社（t）は金額つき。年額の下限の条件には当てはまらない（pass は y が null を通さない）
+  function yearReason(c) {
+    if (c.r === 't' && typeof c.a === 'number') { return PER_TIME_HEAD + c.a.toLocaleString('ja-JP') + '円'; }
+    return YEAR_REASON[c.r] || YEAR_REASON.u;
+  }
   function cell(row, i, text) {
     var td = document.createElement('td');
     td.textContent = text;
@@ -84,7 +91,7 @@
       cell(tr, 4, c.s === null ? '—' : c.s.toLocaleString('ja-JP') + '株');
       cell(tr, 5, c.h || (c.l === 1 ? '長期優遇' : HOLD_NONE));
       cell(tr, 6, c.p || '—');
-      cell(tr, 7, c.y === null ? '—' : c.y.toLocaleString('ja-JP') + '円').className = 'num';
+      cell(tr, 7, c.y === null ? yearReason(c) : c.y.toLocaleString('ja-JP') + '円').className = 'num';
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
