@@ -64,6 +64,17 @@ dl.summary dt{font-size:12px;line-height:1.4;color:var(--muted)}
 dl.summary dd{margin:0;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
 dl.summary .sub{font-weight:400;margin-left:.8em}
 .summary-note{margin:0 0 8px}
+/* 権利落ちの統計ページの先頭の要点（改善案3 U-9）。会社ページの要点（dl.summary）と似た見た目。先頭の1つ（権利落ち）だけ色を付ける */
+dl.brief{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:0 0 6px}
+dl.brief>div{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:5px 10px}
+dl.brief>div:first-child{background:var(--accent-weak)}
+dl.brief>div.wide{grid-column:1/-1}
+dl.brief dt{font-size:12px;line-height:1.4;color:var(--muted)}
+dl.brief dd{margin:0;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+dl.brief .val{font-size:20px;margin-right:.5em}
+dl.brief .sub{font-weight:400}
+dl.brief .file{display:block}
+.brief-note{margin:0 0 8px}
 ul.marks{margin:0;padding-left:1.2em}
 ul.links{columns:2 16em;column-gap:24px}
 .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
@@ -86,6 +97,10 @@ button:hover{background:var(--accent-weak)}
   dl.summary>div{padding:4px 8px}
   dl.summary dd{font-size:15px}
   .summary-note{font-size:12px;line-height:1.5}
+  dl.brief{grid-template-columns:1fr;gap:4px}
+  dl.brief>div{padding:4px 8px}
+  dl.brief .val{font-size:18px}
+  .brief-note{font-size:12px;line-height:1.5}
   details.day>summary{padding:12px}
   .site-header .wrap{padding-top:8px;padding-bottom:8px}
   /* 会社の一覧の表（data-cards）は、1行を1枚の低いカードにする（改善案3 U-5）。1行目は会社名（太字）で、コードはその右端に小さく薄く置く（float）。
