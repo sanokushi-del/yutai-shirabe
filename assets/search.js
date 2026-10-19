@@ -6,6 +6,11 @@
   var out = $('f-results');
   if (!out) { return; }
   var FIRST = 100;
+  var THIS_YEAR = 2026;          // サイトを作った日の年（書き出し時に入る）。表の中の日付はこの年なら年を省く
+  var HEADERS = ["コード", "会社名", "基準日", "次の権利付き最終日", "必要株数", "継続保有", "主な種類", "年額の推定"];         // 表の見出し。各セルの data-label（スマホのカードの項目名）にも使う
+  var NAME_COLUMN = 1;
+  var DATES_COLUMN = 2;
+  var SHORT = {"次の権利付き最終日": "最終日", "必要株数": "株数", "年額の推定": "年額", "主な種類": "種類"};             // スマホのカードで値の直前に出す短い項目名（data-short）。無い項目は data-label を使う
   var shown = FIRST;
   var matched = [];
   var f = { text: $('f-text'), month: $('f-month'), shares: $('f-shares'), hold: $('f-hold'), cat: $('f-cat'),
@@ -43,31 +48,46 @@
       return (x < y ? -1 : 1) * (desc ? -1 : 1);
     });
   }
-  function cell(row, text) { var td = document.createElement('td'); td.textContent = text; row.appendChild(td); return td; }
+  // "2026-10-28" → 今年なら "10月28日（水）"、別の年なら "2027年1月5日（火）"（Python の fmt_table_date と同じ規則）
+  function dateText(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    if (!m) { return iso; }
+    var y = parseInt(m[1], 10), mo = parseInt(m[2], 10), d = parseInt(m[3], 10);
+    var wd = '日月火水木金土'.charAt(new Date(Date.UTC(y, mo - 1, d)).getUTCDay());
+    return (y === THIS_YEAR ? '' : y + '年') + mo + '月' + d + '日（' + wd + '）';
+  }
+  function cell(row, i, text) {
+    var td = document.createElement('td');
+    td.textContent = text;
+    td.setAttribute('data-label', HEADERS[i]);
+    if (SHORT[HEADERS[i]]) { td.setAttribute('data-short', SHORT[HEADERS[i]]); }
+    row.appendChild(td);
+    return td;
+  }
   function render() {
     out.textContent = '';
     var table = document.createElement('table');
     var head = document.createElement('tr');
-    ['コード', '会社名', '基準日', '次の権利付き最終日', '必要株数', '継続保有', '主な種類', '年額の推定'].forEach(function (h) {
+    HEADERS.forEach(function (h) {
       var th = document.createElement('th'); th.scope = 'col'; th.textContent = h; head.appendChild(th);
     });
     var thead = document.createElement('thead'); thead.appendChild(head); table.appendChild(thead);
     var tbody = document.createElement('tbody');
     matched.slice(0, shown).forEach(function (c) {
       var tr = document.createElement('tr');
-      cell(tr, c.c);
-      var td = document.createElement('td'); var a = document.createElement('a');
-      a.href = 'c/' + c.c + '.html'; a.textContent = c.n; td.appendChild(a); tr.appendChild(td);
-      cell(tr, c.b || '—');
-      cell(tr, c.d || '—');
-      cell(tr, c.s === null ? '—' : c.s.toLocaleString('ja-JP') + '株');
-      cell(tr, c.h || (c.l === 1 ? '長期優遇' : '—'));
-      cell(tr, c.p || '—');
-      cell(tr, c.y === null ? '—' : c.y.toLocaleString('ja-JP') + '円').className = 'num';
+      cell(tr, 0, c.c);
+      var td = cell(tr, NAME_COLUMN, ''); var a = document.createElement('a');
+      a.href = 'c/' + c.c + '.html'; a.textContent = c.n; td.appendChild(a); td.className = 'name';
+      cell(tr, DATES_COLUMN, c.b || '—').className = 'fold';
+      cell(tr, 3, c.d ? dateText(c.d) : '—');
+      cell(tr, 4, c.s === null ? '—' : c.s.toLocaleString('ja-JP') + '株');
+      cell(tr, 5, c.h || (c.l === 1 ? '長期優遇' : '—'));
+      cell(tr, 6, c.p || '—');
+      cell(tr, 7, c.y === null ? '—' : c.y.toLocaleString('ja-JP') + '円').className = 'num';
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
-    var wrap = document.createElement('div'); wrap.className = 'table-wrap'; wrap.setAttribute('role', 'region');
+    var wrap = document.createElement('div'); wrap.className = 'table-wrap'; wrap.setAttribute('data-cards', ''); wrap.setAttribute('role', 'region');
     wrap.setAttribute('aria-label', '絞り込みの結果'); wrap.tabIndex = 0; wrap.appendChild(table);
     if (matched.length) { out.appendChild(wrap); }
     $('f-count').textContent = matched.length.toLocaleString('ja-JP') + '社が当てはまります（全' + data.length.toLocaleString('ja-JP') + '社）。' +

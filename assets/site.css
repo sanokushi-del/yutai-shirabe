@@ -39,6 +39,9 @@ table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
 th{background:var(--accent-weak);font-weight:600;white-space:nowrap}
 td{white-space:nowrap}
+td.name{white-space:normal;min-width:9em}
+td.fold{white-space:normal;word-break:keep-all}
+.table-wrap[data-cards] th,.table-wrap[data-cards] td{padding-left:8px;padding-right:8px}
 th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
 tbody tr:last-child td{border-bottom:none}
 dl.facts{display:grid;grid-template-columns:minmax(9em,16em) 1fr;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
@@ -76,4 +79,19 @@ button:hover{background:var(--accent-weak)}
   .summary-note{font-size:12px;line-height:1.5}
   details.day>summary{padding:12px}
   .site-header .wrap{padding-top:8px;padding-bottom:8px}
+  /* 会社の一覧の表（data-cards）は、1行を1枚の低いカードにする（改善案3 U-5）。1行目は会社名（太字）で、コードはその右端に小さく薄く置く（float）。
+     残りの項目は、短い項目名（data-short。無ければ data-label。小さく薄い字）を値の直前に置いて、横に詰めて折り返す。値が「—」の項目も隠さない。
+     見出しの行は視覚的にだけ隠す（読み上げには残す）。権利落ちの統計の表と会社ページの表はカードにしない */
+  .table-wrap[data-cards]{overflow:visible;border:none;border-radius:0;background:none}
+  details.day>.table-wrap[data-cards]{padding:8px}
+  .table-wrap[data-cards] table,.table-wrap[data-cards] tbody{display:block}
+  .table-wrap[data-cards] thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .table-wrap[data-cards] tr{display:flow-root;line-height:1.4;padding:8px 12px;margin:0 0 6px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+  .table-wrap[data-cards] tbody tr:last-child{margin-bottom:0}
+  .table-wrap[data-cards] td{display:inline-block;vertical-align:top;min-width:0;max-width:100%;margin:0 10px 0 0;padding:0;border:none;white-space:normal;overflow-wrap:anywhere;text-align:left;line-height:1.4}
+  .table-wrap[data-cards] td::before{content:attr(data-label);margin-right:3px;font-size:11px;color:var(--muted);font-weight:400}
+  .table-wrap[data-cards] td[data-short]::before{content:attr(data-short)}
+  .table-wrap[data-cards] td.name{display:block;margin:0 0 2px;font-size:16px;font-weight:700;line-height:1.4}
+  .table-wrap[data-cards] td.name::before,.table-wrap[data-cards] td[data-label="コード"]::before{content:none}
+  .table-wrap[data-cards] td[data-label="コード"]{float:right;margin:3px 0 0 8px;font-size:12px;color:var(--muted)}
 }
