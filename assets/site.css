@@ -43,6 +43,15 @@ td.name{white-space:normal;min-width:9em}
 td.fold{white-space:normal;word-break:keep-all}
 .table-wrap[data-cards] th,.table-wrap[data-cards] td{padding-left:8px;padding-right:8px}
 th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+/* 並べ替えのできる表（data-sortable。改善案3 U-7）。見出しのボタンは assets/sort.js が入れる。押せる印は ↕、今の並びは ▲（昇順）・▼（降順）。選択欄はスマホの幅だけ */
+.table-wrap th button{font:inherit;font-weight:600;padding:0;border:none;border-radius:0;background:none;color:inherit;cursor:pointer;white-space:nowrap}
+.table-wrap th button:hover{background:none;text-decoration:underline}
+.table-wrap th button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.table-wrap th[aria-sort] button::after{content:"\2195";margin-left:2px;font-size:10px;font-weight:400;color:var(--muted)}
+.table-wrap th[aria-sort=ascending] button::after{content:"\25B2";color:var(--accent)}
+.table-wrap th[aria-sort=descending] button::after{content:"\25BC";color:var(--accent)}
+.table-wrap[data-sortable] th{padding-right:4px}
+.sort-box{display:none}
 tbody tr:last-child td{border-bottom:none}
 dl.facts{display:grid;grid-template-columns:minmax(9em,16em) 1fr;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
 dl.facts dt,dl.facts dd{margin:0;padding:8px 12px;border-bottom:1px solid var(--border)}
@@ -94,4 +103,8 @@ button:hover{background:var(--accent-weak)}
   .table-wrap[data-cards] td.name{display:block;margin:0 0 2px;font-size:16px;font-weight:700;line-height:1.4}
   .table-wrap[data-cards] td.name::before,.table-wrap[data-cards] td[data-label="コード"]::before{content:none}
   .table-wrap[data-cards] td[data-label="コード"]{float:right;margin:3px 0 0 8px;font-size:12px;color:var(--muted)}
+  /* 見出しの行が隠れるので、並べ替えは表の上の選択欄（assets/sort.js が入れる）で行う（改善案3 U-7） */
+  .sort-box{display:flex;gap:8px;margin:10px 0 0}
+  .sort-box>div{flex:1;min-width:0}
+  .sort-box label{display:block;font-size:13px;font-weight:600;line-height:1.4;margin-bottom:2px}
 }
