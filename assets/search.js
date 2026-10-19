@@ -96,7 +96,7 @@
     more.hidden = matched.length <= shown;
     more.textContent = 'さらに表示（残り' + Math.max(0, matched.length - shown).toLocaleString('ja-JP') + '社）';
   }
-  function update() {
+  function search() {
     var q = { text: norm(f.text.value), month: f.month.value === '' ? 0 : parseInt(f.month.value, 10), shares: num(f.shares.value),
               hold: f.hold.value, cat: f.cat.value, amount: num(f.amount.value) };
     matched = data.filter(function (c) { return pass(c, q); });
@@ -104,12 +104,85 @@
     shown = FIRST;
     render();
   }
-  Object.keys(f).forEach(function (k) { f[k].addEventListener('input', update); f[k].addEventListener('change', update); });
+  // --- 条件を URL の # 以降に残す（戻る・共有・ブックマークで条件が戻る）。
+  // history.replaceState で今の URL を書き換えるだけ（履歴は増やさない。# 以降はサーバーに送られない。どこにも保存しない）。
+  // 条件の # は必ず HASH_HEAD で始める（ページ内リンクの #last-… や #main と取り違えない）。例: #f:m=3&s=100&h=required
+  // 読み取る値は確かめる: 選択欄は選択肢にある値だけ、数字の欄は半角の 0-9 だけ、文字の欄は長さの上限つき。欄には .value でしか入れない。
+  var HASH_HEAD = '#f:';
+  var HASH_MAX = 1000;               // # 以降の長さの上限（これより長いものは条件として読まない）
+  var TEXT_MAX = 40;                 // 会社名・コードの欄の文字数の上限
+  var NUM_MAX = 999999999;           // 数字の欄の上限（9桁）
+  var DEFAULTS = { text: '', month: '', shares: '', hold: '', cat: '', amount: '', sort: 'code', dir: 'asc' };
+  var HASH_KEYS = [['q', 'text'], ['m', 'month'], ['s', 'shares'], ['h', 'hold'], ['c', 'cat'], ['a', 'amount'], ['o', 'sort'], ['d', 'dir']];
+  function isFilterHash(h) { return String(h).indexOf(HASH_HEAD) === 0; }
+  function cleanText(s) {
+    return Array.from(String(s).replace(/[\u0000-\u001f\u007f]/g, '')).slice(0, TEXT_MAX).join('').trim();
+  }
+  function allowed(sel, v) {
+    for (var i = 0; i < sel.options.length; i++) { if (sel.options[i].value === v) { return true; } }
+    return false;
+  }
+  // 条件の # → { 欄の名前: 値 }。読めない値・知らないキーは入れない（無視する）
+  function parseHash(h) {
+    var got = {};
+    if (!isFilterHash(h) || h.length > HASH_MAX) { return got; }
+    h.slice(HASH_HEAD.length).split('&').slice(0, 16).forEach(function (pair) {
+      var at = pair.indexOf('=');
+      var name = null;
+      HASH_KEYS.forEach(function (k) { if (at > 0 && k[0] === pair.slice(0, at)) { name = k[1]; } });
+      if (name === null) { return; }
+      var v;
+      try { v = decodeURIComponent(pair.slice(at + 1)); } catch (e) { return; }
+      if (name === 'text') { v = cleanText(v); }
+      else if (name === 'shares' || name === 'amount') {
+        if (!/^[0-9]{1,9}$/.test(v)) { return; }
+        v = String(parseInt(v, 10));
+      } else if (!allowed(f[name], v)) { return; }
+      got[name] = v;
+    });
+    return got;
+  }
+  function applyHash(h) {
+    var got = parseHash(h);
+    Object.keys(DEFAULTS).forEach(function (name) {
+      f[name].value = Object.prototype.hasOwnProperty.call(got, name) ? got[name] : DEFAULTS[name];
+    });
+  }
+  // 今の欄の値 → 条件の #。既定のままの欄は書かない（全部が既定なら空）
+  function hashFromForm() {
+    var parts = [];
+    HASH_KEYS.forEach(function (k) {
+      var name = k[1], v = f[name].value;
+      if (name === 'text') { v = cleanText(v); }
+      else if (name === 'shares' || name === 'amount') { var n = num(v); v = (!isNaN(n) && n <= NUM_MAX) ? String(n) : ''; }
+      if (v === DEFAULTS[name]) { return; }
+      try { parts.push(k[0] + '=' + encodeURIComponent(v)); } catch (e) { /* 対になっていないサロゲートなど。その欄は書かない */ }
+    });
+    return parts.length ? HASH_HEAD + parts.join('&') : '';
+  }
+  function writeHash(clear) {
+    var h = clear ? '' : hashFromForm();
+    if (h === location.hash) { return; }
+    // 条件が既定のままで、今の # が条件ではない（#last-… などのページ内リンク）なら、そのまま残す
+    if (h === '' && !clear && !isFilterHash(location.hash)) { return; }
+    try { history.replaceState(null, '', location.pathname + location.search + h); } catch (e) { /* 書き換えられない環境では何もしない */ }
+  }
+  function onChange() { search(); writeHash(false); }
+  // # に条件があれば欄に戻して絞り込む。条件の # でなければ（#last-… など）欄には触らない
+  function restore() {
+    if (!isFilterHash(location.hash)) { return false; }
+    applyHash(location.hash);
+    search();
+    writeHash(false);                // 読めなかった部分を落とした形に直す
+    return true;
+  }
+  Object.keys(f).forEach(function (k) { f[k].addEventListener('input', onChange); f[k].addEventListener('change', onChange); });
   $('f-reset').addEventListener('click', function () {
-    f.text.value = ''; f.shares.value = ''; f.amount.value = '';
-    f.month.value = ''; f.hold.value = ''; f.cat.value = ''; f.sort.value = 'code'; f.dir.value = 'asc';
-    update();
+    Object.keys(DEFAULTS).forEach(function (name) { f[name].value = DEFAULTS[name]; });
+    search();
+    writeHash(true);
   });
   $('f-more').addEventListener('click', function () { shown += FIRST; render(); });
-  update();
+  window.addEventListener('hashchange', restore);
+  if (!restore()) { search(); }
 })();
