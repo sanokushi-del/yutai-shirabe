@@ -12,7 +12,7 @@
   var DATES_COLUMN = 2;
   var SHORT = {"次の権利付き最終日": "最終日", "必要株数": "株数", "年額の推定": "年額", "主な種類": "種類"};             // スマホのカードで値の直前に出す短い項目名（data-short）。無い項目は data-label を使う
   var HOLD_NONE = "条件の記載なし";     // 継続保有が必須も長期優遇も読めなかった会社の表示（Python の site.HOLD_NONE_TEXT。一覧ページと同じ言い方）
-  var YEAR_REASON = {"d": "割引", "p": "ポイント", "n": "記載なし", "u": "読み取れず"}; // 年額が無い会社の理由の短い言い方（companies.js の r の値 → 文字。Python の site.YEAR_REASON_SHORT。一覧ページの表と同じ言い方）
+  var YEAR_REASON = {"d": "割引", "p": "ポイント", "n": "記載なし", "o": "上の段のみ", "u": "読み取れず"}; // 年額が無い会社の理由の短い言い方（companies.js の r の値 → 文字。Python の site.YEAR_REASON_SHORT。一覧ページの表と同じ言い方）
   var PER_TIME_HEAD = "1回 ";   // r が t（1回の金額だけ読めた会社）のときの表示「1回 1,000円」の頭。金額は a
   var shown = FIRST;
   var matched = [];
