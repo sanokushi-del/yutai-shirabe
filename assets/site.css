@@ -102,7 +102,14 @@ button:hover{background:var(--accent-weak)}
   dl.brief .val{font-size:18px}
   .brief-note{font-size:12px;line-height:1.5}
   details.day>summary{padding:12px}
-  .site-header .wrap{padding-top:8px;padding-bottom:8px}
+  /* 見出しの帯（改善案3 U-10）: サイト名の行とナビの行の2段にして低くする。ナビは折り返さず、ナビの枠の中だけ横にスクロールする（ページ全体は動かない）。
+     リンクは押せる高さ（44px）を取り、リンクの間は4pxあける。はみ出していることは、右端を薄くして（mask-image）、最後に余白（右の padding）を置いて示す。
+     枠は画面の端まで広げ（左右の margin を -16px）、左の padding でサイト名と最初の字をそろえる。リンクの枠が上下いっぱいなので、フォーカスの線は内側に描く */
+  .site-header .wrap{flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:0;padding-top:0;padding-bottom:0}
+  .brand{align-self:flex-start;padding-top:6px;line-height:1.4}
+  .site-nav{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:0 4px;margin:0 -16px;padding:0 16px 0 8px;scrollbar-width:thin;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}
+  .site-nav a{display:inline-flex;align-items:center;flex:none;min-height:44px;padding:0 8px}
+  .site-nav a:focus-visible{outline-offset:-3px}
   /* 会社の一覧の表（data-cards）は、1行を1枚の低いカードにする（改善案3 U-5）。1行目は会社名（太字）で、コードはその右端に小さく薄く置く（float）。
      残りの項目は、短い項目名（data-short。無ければ data-label。小さく薄い字）を値の直前に置いて、横に詰めて折り返す。値が「—」の項目も隠さない。
      見出しの行は視覚的にだけ隠す（読み上げには残す）。権利落ちの統計の表と会社ページの表はカードにしない */
