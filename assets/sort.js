@@ -8,7 +8,7 @@
   var tbody = table ? table.tBodies[0] : null;
   var heads = table ? Array.prototype.slice.call(table.querySelectorAll('thead th[data-sort]')) : [];
   if (!tbody || !heads.length) { return; }
-  var EMPTY = ['', '—', '読み取れず'];             // 文字の列で「値なし」とみなす表示
+  var EMPTY = ['', '—', '読み取れず', '条件の記載なし'];             // 文字の列で「値なし」とみなす表示（継続保有の「条件の記載なし」も、今までの「—」と同じく最後）
   var collator = (typeof Intl === 'object' && Intl.Collator) ? new Intl.Collator('ja', { numeric: true }) : null;     // 数は大きさで比べる（「1年」「2年」「10年」の順）
   function compareText(x, y) { return collator ? collator.compare(x, y) : x.localeCompare(y, 'ja', { numeric: true }); }
 

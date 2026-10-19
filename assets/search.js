@@ -11,6 +11,7 @@
   var NAME_COLUMN = 1;
   var DATES_COLUMN = 2;
   var SHORT = {"次の権利付き最終日": "最終日", "必要株数": "株数", "年額の推定": "年額", "主な種類": "種類"};             // スマホのカードで値の直前に出す短い項目名（data-short）。無い項目は data-label を使う
+  var HOLD_NONE = "条件の記載なし";     // 継続保有が必須も長期優遇も読めなかった会社の表示（Python の site.HOLD_NONE_TEXT。一覧ページと同じ言い方）
   var shown = FIRST;
   var matched = [];
   var f = { text: $('f-text'), month: $('f-month'), shares: $('f-shares'), hold: $('f-hold'), cat: $('f-cat'),
@@ -81,7 +82,7 @@
       cell(tr, DATES_COLUMN, c.b || '—').className = 'fold';
       cell(tr, 3, c.d ? dateText(c.d) : '—');
       cell(tr, 4, c.s === null ? '—' : c.s.toLocaleString('ja-JP') + '株');
-      cell(tr, 5, c.h || (c.l === 1 ? '長期優遇' : '—'));
+      cell(tr, 5, c.h || (c.l === 1 ? '長期優遇' : HOLD_NONE));
       cell(tr, 6, c.p || '—');
       cell(tr, 7, c.y === null ? '—' : c.y.toLocaleString('ja-JP') + '円').className = 'num';
       tbody.appendChild(tr);
