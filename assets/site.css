@@ -1,18 +1,26 @@
-:root{--bg:#f6f5f1;--surface:#fff;--text:#1f2a30;--muted:#5b6770;--accent:#2c5f7c;--accent-weak:#e6eef2;--border:#d9d6cc;--warn:#fff6e0;--warn-ink:#5a4300;color-scheme:light}
+:root{--bg:#f7f4ee;--surface:#fff;--text:#1d2a33;--muted:#5e6a72;--primary:#1f5f6e;--primary-ink:#164652;--primary-weak:#e4f0f1;--accent:#c8662f;--accent-ink:#a24a1b;--accent-weak:#fbece2;--border:#e4dfd5;--field:#a9b3b8;--shadow:0 1px 2px rgba(29,42,51,.06),0 4px 14px rgba(29,42,51,.06);--warn:#fff6e0;--warn-ink:#5a4300;color-scheme:light}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif;line-height:1.75;font-size:16px}
-a{color:var(--accent)}
+a{color:var(--primary)}
+a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 .skip{position:absolute;left:-999px;top:0}
 .skip:focus{left:8px;top:8px;background:var(--surface);padding:6px 10px;z-index:10}
 .wrap{max-width:960px;margin:0 auto;padding:0 16px}
-.site-header{background:var(--surface);border-bottom:1px solid var(--border)}
+/* 見出しの帯（改善案8）: 白い面に薄い影。上に3pxの線（主の色から強調の色へ）。サイト名の左に印（SVG）、パソコンの幅ではサイト名の横に副題 */
+.site-header{position:relative;background:var(--surface);box-shadow:var(--shadow)}
+.site-header::before{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent))}
 .site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px;padding-top:10px;padding-bottom:10px}
 .brand{font-weight:700;font-size:18px;color:var(--text);text-decoration:none}
+.site-header .brand{display:flex;align-items:center;gap:8px}
+.brand-mark{flex:none;color:var(--primary)}
+.tagline{margin-right:auto;font-size:13px;color:var(--muted)}
 .site-nav{display:flex;flex-wrap:wrap;gap:2px 16px;font-size:14px}
+.site-nav a{padding:4px 8px;border-radius:8px;text-decoration:none}
+.site-nav a:hover{background:var(--primary-weak);color:var(--primary-ink)}
 main{padding-top:16px;padding-bottom:32px}
-h1{font-size:24px;line-height:1.4;margin:8px 0 12px;overflow-wrap:anywhere}
-h2{font-size:19px;margin:32px 0 10px;padding-bottom:4px;border-bottom:2px solid var(--accent-weak)}
+h1{font-size:24px;line-height:1.4;margin:8px 0 12px;overflow-wrap:anywhere;color:var(--primary-ink)}
+h2{font-size:19px;line-height:1.4;margin:32px 0 10px;padding-left:10px;border-left:4px solid var(--primary)}
 h3{font-size:16px;margin:16px 0 6px}
 p,ul,ol,dl{margin:0 0 12px}
 li{margin:2px 0}
@@ -20,7 +28,53 @@ li{margin:2px 0}
 .lead p{margin:0 0 8px}
 .crumbs{font-size:13px;color:var(--muted)}
 .crumbs a{color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin:12px 0}
+/* トップの最初の画面（hero）: 導入文・要点の札3つ（stat）・入口の札（権利月の丸い札と、優待の種類の色の札） */
+.hero{background:linear-gradient(180deg,var(--primary-weak),var(--bg));border-radius:16px;padding:24px;margin:0 0 8px}
+.hero h1{font-size:30px;margin:0 0 8px}
+.hero .lead{max-width:46em}
+.hero .lead p{margin:0}
+.stats{list-style:none;margin:16px 0 4px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{margin:0;min-width:0;background:var(--surface);border-radius:12px;box-shadow:var(--shadow);padding:12px 16px}
+.stat-label{display:block;font-size:13px;line-height:1.4;color:var(--muted)}
+.stat-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 10px;color:inherit;text-decoration:none}
+.stat-line:hover .stat-value{text-decoration:underline}
+.stat-value{position:relative;display:inline-block;padding-left:12px;font-size:24px;font-weight:700;line-height:1.4;color:var(--text);font-variant-numeric:tabular-nums}
+.stat-value::before{content:"";position:absolute;left:0;top:.25em;bottom:.25em;width:4px;border-radius:2px;background:var(--accent)}
+.next-day .stat-value{color:var(--primary)}
+.stat .unit,.stat-sub{font-size:14px;font-weight:600;color:var(--muted)}
+.entry{margin-top:14px}
+.entry-title{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--primary-ink)}
+.pills{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px}
+.pills li{margin:0}
+.pill{display:inline-block;padding:2px 12px;border:1px solid var(--primary);border-radius:999px;background:var(--surface);color:var(--primary-ink);font-size:14px;line-height:1.7;text-decoration:none}
+.pill:hover{background:var(--primary-weak)}
+.entry .chip{padding:3px 12px;font-size:13px}
+/* 札（chip）: 優待の種類は色の札（.cat-<slug>。slug は一覧ページのファイル名と同じ）、継続保有は 必須 = 主の色の線の札・長期優遇 = 強調の薄い地の札。
+   リンクの札は下線を引かず、hover で少し濃くする。値が無いとき（記載なし・読み取れず・条件の記載なし）は札にしない */
+.chip{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600;line-height:1.6;white-space:nowrap}
+a>.chip,a.chip{text-decoration:none}
+a:hover>.chip,a.chip:hover{filter:brightness(.93)}
+.cat-gift{background:#fdf1dc;color:#7a4f00}
+.cat-own-coupon{background:#fde7e5;color:#8f2a24}
+.cat-own-goods{background:#e7f3e5;color:#2c6427}
+.cat-discount{background:#eee9fb;color:#53399a}
+.cat-point{background:#e3eefc;color:#1d4c8a}
+.cat-specialty{background:#fff0df;color:#8c4600}
+.cat-facility{background:#e1f3f3;color:#1a5c5c}
+.cat-catalog{background:#fbe8f2;color:#86295d}
+.cat-finance{background:#eceff3;color:#38475a}
+.cat-experience{background:#fbf3d4;color:#6e5800}
+.cat-service{background:#e6f0f8;color:#2a5a80}
+.cat-donation{background:#ecf5e6;color:#40682a}
+.cat-unknown{background:#f0f0ee;color:#5e6a72}
+.hold-required{padding:0 7px;border:1px solid var(--primary);color:var(--primary-ink);background:var(--surface)}
+.hold-longterm{padding:0 7px;border:1px solid var(--accent);color:var(--accent-ink);background:var(--surface)}
+.hold-sep{margin:0 2px;font-weight:400;color:var(--muted)}
+td[data-label="継続保有"]{color:var(--muted)}
+.badges{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:0 0 12px}
+.badges .chip{font-size:13px}
+.code-tag{display:inline-block;padding:1px 10px;border-radius:999px;background:var(--primary-weak);color:var(--primary-ink);font:600 13px/1.6 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:16px;margin:12px 0}
 .card h2{margin-top:0}
 .notice{background:var(--warn);color:var(--warn-ink);border-radius:8px;padding:10px 14px;font-size:14px;margin:12px 0}
 .small{font-size:13px;color:var(--muted)}
@@ -28,16 +82,17 @@ li{margin:2px 0}
 th.group{text-align:center;border-bottom:1px solid var(--border)}
 .ref{color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:8px;background:var(--surface);margin:10px 0}
-.next-day{margin:0 0 12px;padding:8px 12px;background:var(--accent-weak);border-radius:8px;font-weight:600}
-.next-day a{white-space:nowrap}
-details.day{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin:8px 0;scroll-margin-top:8px}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);margin:10px 0}
+details.day{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);margin:8px 0;scroll-margin-top:8px}
 details.day>summary{cursor:pointer;padding:10px 14px;font-weight:600;line-height:1.5}
+details.day>summary::marker{color:var(--primary)}
+details.day>summary time{color:var(--accent-ink)}
+details.day>summary .count{display:inline-block;margin-left:6px;padding:0 10px;border-radius:999px;background:var(--primary-weak);color:var(--primary-ink);font-size:13px;line-height:1.7}
 details.day[open]>summary{border-bottom:1px solid var(--border)}
-details.day>.table-wrap{margin:0;border:none;border-radius:0 0 8px 8px}
+details.day>.table-wrap{margin:0;border:none;border-radius:0 0 12px 12px;box-shadow:none}
 table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
-th{background:var(--accent-weak);font-weight:600;white-space:nowrap}
+th{background:var(--primary-weak);color:var(--primary-ink);font-weight:600;white-space:nowrap}
 td{white-space:nowrap}
 td.name{white-space:normal;min-width:9em}
 td.fold{white-space:normal;word-break:keep-all}
@@ -46,31 +101,37 @@ th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
 /* 並べ替えのできる表（data-sortable。改善案3 U-7）。見出しのボタンは assets/sort.js が入れる。押せる印は ↕、今の並びは ▲（昇順）・▼（降順）。選択欄はスマホの幅だけ */
 .table-wrap th button{font:inherit;font-weight:600;padding:0;border:none;border-radius:0;background:none;color:inherit;cursor:pointer;white-space:nowrap}
 .table-wrap th button:hover{background:none;text-decoration:underline}
-.table-wrap th button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.table-wrap th button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 .table-wrap th[aria-sort] button::after{content:"\2195";margin-left:2px;font-size:10px;font-weight:400;color:var(--muted)}
-.table-wrap th[aria-sort=ascending] button::after{content:"\25B2";color:var(--accent)}
-.table-wrap th[aria-sort=descending] button::after{content:"\25BC";color:var(--accent)}
+.table-wrap th[aria-sort=ascending] button::after{content:"\25B2";color:var(--primary)}
+.table-wrap th[aria-sort=descending] button::after{content:"\25BC";color:var(--primary)}
 .table-wrap[data-sortable] th{padding-right:4px}
 .sort-box{display:none}
+tbody tr:nth-child(even){background:#fbfaf7}
+tbody tr:hover{background:var(--primary-weak)}
 tbody tr:last-child td{border-bottom:none}
-dl.facts{display:grid;grid-template-columns:minmax(9em,16em) 1fr;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+dl.facts{display:grid;grid-template-columns:minmax(9em,16em) 1fr;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
 dl.facts dt,dl.facts dd{margin:0;padding:8px 12px;border-bottom:1px solid var(--border)}
-dl.facts dt{background:var(--accent-weak);font-weight:600}
+dl.facts dt{background:var(--primary-weak);color:var(--primary-ink);font-weight:600}
 dl.facts dt:last-of-type,dl.facts dd:last-of-type{border-bottom:none}
-dl.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 6px}
-dl.summary>div{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:5px 10px}
-dl.summary>div.wide{grid-column:1/-1;background:var(--accent-weak)}
+/* 会社ページの要点の箱: 白い札（角丸10px・影）。値は17px の太字。次の権利付き最終日の広い札は左に強調の色の線で、日付を20px。値が無い項目（dim）は薄い字 */
+dl.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
+dl.summary>div{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:6px 12px}
+dl.summary>div.wide{grid-column:1/-1;border-left:4px solid var(--accent)}
 dl.summary dt{font-size:12px;line-height:1.4;color:var(--muted)}
-dl.summary dd{margin:0;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+dl.summary dd{margin:0;font-size:17px;font-weight:700;line-height:1.45;overflow-wrap:anywhere}
+dl.summary>div.wide dd time{font-size:20px}
 dl.summary .sub{font-weight:400;margin-left:.8em}
+dl.summary>div.dim dd{font-size:15px;font-weight:400;color:var(--muted)}
 .summary-note{margin:0 0 8px}
 /* 権利落ちの統計ページの先頭の要点（改善案3 U-9）。会社ページの要点（dl.summary）と似た見た目。先頭の1つ（権利落ち）だけ色を付ける */
-dl.brief{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:0 0 6px}
-dl.brief>div{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:5px 10px}
-dl.brief>div:first-child{background:var(--accent-weak)}
+dl.brief{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 6px}
+dl.brief>div{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:6px 12px}
+dl.brief>div:first-child{background:var(--accent-weak);border-left:4px solid var(--accent)}
 dl.brief>div.wide{grid-column:1/-1}
 dl.brief dt{font-size:12px;line-height:1.4;color:var(--muted)}
 dl.brief dd{margin:0;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+dl.brief>div:first-child dt{color:var(--text)}
 dl.brief .val{font-size:20px;margin-right:.5em}
 dl.brief .sub{font-weight:400}
 dl.brief .file{display:block}
@@ -79,32 +140,56 @@ ul.marks{margin:0;padding-left:1.2em}
 ul.links{columns:2 16em;column-gap:24px}
 .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
 .filters label,#yield-box label{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
-input[type=text],select{font:inherit;font-size:16px;width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text)}
+input[type=text],select{font:inherit;font-size:16px;width:100%;padding:8px 10px;border:1px solid var(--field);border-radius:8px;background:var(--surface);color:var(--text)}
+input[type=text]:focus,select:focus{outline:2px solid transparent;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-weak)}
 #yield-box input[type=text]{max-width:16em}
-button{font:inherit;font-size:15px;padding:8px 16px;border:1px solid var(--accent);border-radius:8px;background:var(--surface);color:var(--accent);cursor:pointer}
-button:hover{background:var(--accent-weak)}
+button{font:inherit;font-size:15px;padding:8px 16px;border:1px solid var(--primary);border-radius:8px;background:var(--surface);color:var(--primary);cursor:pointer}
+button:hover{background:var(--primary-weak)}
+#f-more{background:var(--primary);color:#fff}
+#f-more:hover{background:var(--primary-ink)}
 .result{font-size:18px;font-weight:700}
-.note-cta{background:var(--accent-weak);border-top:1px solid var(--border);padding:12px 0;font-size:14px}
-.note-cta p{margin:4px 0}
-.site-footer{padding:16px 0 40px;font-size:13px;color:var(--muted)}
+/* 優待利回りの計算: 主の色の薄い地のカード。結果の文は大きく（yield.js は変えず、文全体を大きくしている） */
+#yield-box.card{background:var(--primary-weak);border-color:#c5dde0}
+#yield-box h3{margin-top:0;color:var(--primary-ink)}
+#yield-box label+br{display:none}
+#yield-box .result{margin:4px 0 12px;font-size:20px;line-height:1.5;color:var(--primary-ink)}
+.note-cta{padding:0 0 28px;font-size:14px}
+.note-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:12px;box-shadow:var(--shadow);padding:12px 16px}
+.note-card p{margin:4px 0}
+.site-footer{background:var(--primary-ink);color:#fff;border-top:2px solid var(--accent);padding:20px 0 40px;font-size:13px}
 .site-footer p{margin:4px 0}
+.site-footer a{color:#d8ecef;text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
 @media (max-width:640px){
   body{font-size:15px}
   h1{font-size:21px}
+  .hero{padding:16px}
+  .hero h1{font-size:24px}
+  /* 要点の札はスマホでは縦に並べ、1枚を1行（項目名が左・値が右）にして低くする（hero を短くして、条件で探すを早く見せる） */
+  .stats{grid-template-columns:1fr;gap:8px;margin-top:12px}
+  .stat{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px}
+  .stat-label{flex:none}
+  .next-day{flex-direction:column;align-items:flex-start;gap:0}
+  .entry .chip{padding:5px 12px}
+  .pill{padding:4px 14px}
+  .tagline{display:none}
   dl.facts{grid-template-columns:1fr}
   dl.facts dt{border-bottom:none;padding-bottom:2px}
   dl.summary{grid-template-columns:repeat(2,1fr);gap:4px}
   dl.summary>div{padding:4px 8px}
   dl.summary dd{font-size:15px}
+  dl.summary>div.wide .sub{display:block;margin-left:0}
   .summary-note{font-size:12px;line-height:1.5}
   dl.brief{grid-template-columns:1fr;gap:4px}
   dl.brief>div{padding:4px 8px}
   dl.brief .val{font-size:18px}
   .brief-note{font-size:12px;line-height:1.5}
+  #yield-box .result{font-size:18px}
   details.day>summary{padding:12px}
   /* 見出しの帯（改善案3 U-10）: サイト名の行とナビの行の2段にして低くする。ナビは折り返さず、ナビの枠の中だけ横にスクロールする（ページ全体は動かない）。
      リンクは押せる高さ（44px）を取り、リンクの間は4pxあける。はみ出していることは、右端を薄くして（mask-image）、最後に余白（右の padding）を置いて示す。
-     枠は画面の端まで広げ（左右の margin を -16px）、左の padding でサイト名と最初の字をそろえる。リンクの枠が上下いっぱいなので、フォーカスの線は内側に描く */
+     枠は画面の端まで広げ（左右の margin を -16px）、左の padding でサイト名と最初の字をそろえる。リンクの枠が上下いっぱいなので、フォーカスの線は内側に描く。
+     改善案8: 上に3pxの線と、サイト名の左の印（24px）が増えても、帯の高さは90px以下（印の行 約31px + ナビ 44px + 線 3px）。副題は出さない */
   .site-header .wrap{flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:0;padding-top:0;padding-bottom:0}
   .brand{align-self:flex-start;padding-top:6px;line-height:1.4}
   .site-nav{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:0 4px;margin:0 -16px;padding:0 16px 0 8px;scrollbar-width:thin;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}
@@ -112,12 +197,12 @@ button:hover{background:var(--accent-weak)}
   .site-nav a:focus-visible{outline-offset:-3px}
   /* 会社の一覧の表（data-cards）は、1行を1枚の低いカードにする（改善案3 U-5）。1行目は会社名（太字）で、コードはその右端に小さく薄く置く（float）。
      残りの項目は、短い項目名（data-short。無ければ data-label。小さく薄い字）を値の直前に置いて、横に詰めて折り返す。値が「—」の項目も隠さない。
-     見出しの行は視覚的にだけ隠す（読み上げには残す）。権利落ちの統計の表と会社ページの表はカードにしない */
-  .table-wrap[data-cards]{overflow:visible;border:none;border-radius:0;background:none}
+     見出しの行は視覚的にだけ隠す（読み上げには残す）。権利落ちの統計の表と会社ページの表はカードにしない。改善案8: カードは角丸12px・影 */
+  .table-wrap[data-cards]{overflow:visible;border:none;border-radius:0;background:none;box-shadow:none}
   details.day>.table-wrap[data-cards]{padding:8px}
   .table-wrap[data-cards] table,.table-wrap[data-cards] tbody{display:block}
   .table-wrap[data-cards] thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-  .table-wrap[data-cards] tr{display:flow-root;line-height:1.4;padding:8px 12px;margin:0 0 6px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+  .table-wrap[data-cards] tr{display:flow-root;line-height:1.4;padding:8px 12px;margin:0 0 6px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
   .table-wrap[data-cards] tbody tr:last-child{margin-bottom:0}
   .table-wrap[data-cards] td{display:inline-block;vertical-align:top;min-width:0;max-width:100%;margin:0 10px 0 0;padding:0;border:none;white-space:normal;overflow-wrap:anywhere;text-align:left;line-height:1.4}
   .table-wrap[data-cards] td::before{content:attr(data-label);margin-right:3px;font-size:11px;color:var(--muted);font-weight:400}

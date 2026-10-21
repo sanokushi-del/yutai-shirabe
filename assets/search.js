@@ -14,6 +14,7 @@
   var HOLD_NONE = "条件の記載なし";     // 継続保有が必須も長期優遇も読めなかった会社の表示（Python の site.HOLD_NONE_TEXT。一覧ページと同じ言い方）
   var YEAR_REASON = {"d": "割引", "p": "ポイント", "n": "記載なし", "o": "上の段のみ", "u": "読み取れず"}; // 年額が無い会社の理由の短い言い方（companies.js の r の値 → 文字。Python の site.YEAR_REASON_SHORT。一覧ページの表と同じ言い方）
   var PER_TIME_HEAD = "1回 ";   // r が t（1回の金額だけ読めた会社）のときの表示「1回 1,000円」の頭。金額は a
+  var CAT_SLUGS = {"金券・ギフト": "gift", "自社の優待券": "own-coupon", "割引": "discount", "自社製品": "own-goods", "特産品・食品": "specialty", "カタログギフト": "catalog", "ポイント": "point", "寄付": "donation", "体験・招待": "experience", "交通・宿泊・施設": "facility", "金融": "finance", "サービス利用": "service", "不明": "unknown", "記載なし": "unknown"};     // 種類の名前 → 色の札の名前（Python の site.CATEGORY_SLUGS と「記載なし」。一覧ページの表と同じ札にする。知らない名前は unknown）
   var shown = FIRST;
   var matched = [];
   var f = { text: $('f-text'), month: $('f-month'), shares: $('f-shares'), hold: $('f-hold'), cat: $('f-cat'),
@@ -72,6 +73,35 @@
     row.appendChild(td);
     return td;
   }
+  // 継続保有・主な種類のセルを、一覧ページの表と同じ札にする（改善案8）。セルの文字は変えない（textContent は札になっても同じ）。
+  // 札の名前（class）は Python の site.hold_chip・category_chip と同じ: 必須 = hold-required、長期優遇 = hold-longterm、種類 = cat-<slug>
+  function chip(name, text) {
+    var s = document.createElement('span');
+    s.className = 'chip ' + name;
+    s.textContent = text;
+    return s;
+  }
+  // 継続保有: 「必須：1年」「必須（期間は読み取れず）」「長期優遇」を札に（両方あれば ' / ' で区切る）。条件の記載なし（c.h も c.l も無い）は札にしない
+  function holdChips(td, c) {
+    if (!c.h && c.l !== 1) { return; }
+    var parts = td.textContent.split(' / ');
+    td.textContent = '';
+    parts.forEach(function (part, i) {
+      if (i > 0) {
+        var sep = document.createElement('span');
+        sep.className = 'hold-sep';
+        sep.textContent = ' / ';
+        td.appendChild(sep);
+      }
+      td.appendChild(chip(part.indexOf('必須') === 0 ? 'hold-required' : 'hold-longterm', part));
+    });
+  }
+  // 主な種類: c.p が空（種類なし）なら「—」のまま。それ以外（「記載なし」「不明」も）は札
+  function catChip(td, c) {
+    if (!c.p) { return; }
+    td.textContent = '';
+    td.appendChild(chip('cat-' + (CAT_SLUGS[c.p] || CAT_SLUGS['記載なし']), c.p));
+  }
   function render() {
     out.textContent = '';
     var table = document.createElement('table');
@@ -92,6 +122,8 @@
       cell(tr, 5, c.h || (c.l === 1 ? '長期優遇' : HOLD_NONE));
       cell(tr, 6, c.p || '—');
       cell(tr, 7, c.y === null ? yearReason(c) : c.y.toLocaleString('ja-JP') + '円').className = 'num';
+      holdChips(tr.cells[5], c);
+      catChip(tr.cells[6], c);
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
