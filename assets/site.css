@@ -124,6 +124,9 @@ dl.summary>div.wide dd time{font-size:20px}
 dl.summary .sub{font-weight:400;margin-left:.8em}
 dl.summary>div.dim dd{font-size:15px;font-weight:400;color:var(--muted)}
 .summary-note{margin:0 0 8px}
+/* 会社ページの「株価から計算した値」（改善案9 Z-2）: 要点の箱（dl.summary）と同じ札を6つ（3列。スマホは2列）。値が無い札（dim）は薄い字。値の出どころの印は小さな箇条書き */
+dl.summary.market{margin:0 0 8px}
+ul.market-marks{margin:0 0 12px;padding-left:1.2em}
 /* 権利落ちの統計ページの先頭の要点（改善案3 U-9）。会社ページの要点（dl.summary）と似た見た目。先頭の1つ（権利落ち）だけ色を付ける */
 dl.brief{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 6px}
 dl.brief>div{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:6px 12px}
