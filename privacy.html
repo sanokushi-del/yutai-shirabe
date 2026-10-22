@@ -7,6 +7,7 @@
 <meta name="description" content="このサイトが取得する情報・Cookie・外部送信について。">
 <link rel="canonical" href="https://yutai-shirabe.com/privacy.html">
 <link rel="stylesheet" href="assets/site.css">
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "15d926557362478db5d718252a6b1aaf"}'></script>
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
@@ -22,14 +23,22 @@
 <!-- 広告の置き場所 -->
 <h2>現在の状況</h2>
 <ul>
-<li>このサイトは、アクセス解析のサービスを使っていません。広告も配信していません。Cookie も使っていません。</li>
-<li>各ページは、外部のスクリプト・フォント・画像を読み込みません。ページの表示のために、利用者の情報を第三者へ送信することはありません。</li>
+<li>このサイトは、どのページがどれだけ見られたかを集計するために、Cloudflare, Inc. のアクセス解析サービス（Cloudflare Web Analytics）を使っています。内容は下の「アクセス解析（Cloudflare Web Analytics）」に書いています。広告は配信していません。Cookie は使っていません。</li>
+<li>各ページは、外部のフォント・画像を読み込みません。外部から読み込むスクリプトは、上のアクセス解析の計測のスクリプト（static.cloudflareinsights.com から配信されるもの）だけです。それ以外の目的で、ページの表示のために利用者の情報を第三者へ送信することはありません。</li>
 <li>優待利回りの計算欄に入力した株価は、お使いのブラウザの中だけで計算します。送信も保存もしません。</li>
 <li>条件で探す欄の絞り込みも、ブラウザの中だけで行います。</li>
 <li>このサイトは GitHub Pages（GitHub, Inc.）から配信しています。配信の仕組み上、GitHub がアクセスの記録（IP アドレスなど）を安全のために取得・保存することがあります。扱いは GitHub のプライバシーに関する声明によります。</li>
 </ul>
-<h2>今後、アクセス解析や広告を入れるとき</h2>
-<p>アクセス解析や広告（Google アドセンスなど）を入れる前に、このページに次の内容を書きます。</p>
+<h2 id="analytics">アクセス解析（Cloudflare Web Analytics）</h2>
+<dl class="facts">
+<dt>目的</dt><dd>どのページがどれだけ見られたかを集計するためです。集計の結果は、サイトの改善と、会社ページの閲覧の多い順の一覧（「閲覧の多い会社ページ」。会社名と期間だけを載せ、閲覧数そのものは載せません）に使います。個々の利用者を特定したり、追跡したりするためには使いません。</dd>
+<dt>送信先</dt><dd>Cloudflare, Inc.（米国の事業者）。ページを開くと、利用者のブラウザから Cloudflare へ、計測の情報が外部へ送信されます。</dd>
+<dt>Cookie</dt><dd>この計測では Cookie を使いません。ブラウザに値を保存する仕組み（localStorage など）も、この計測では使わない、と Cloudflare は説明しています。</dd>
+<dt>送られる情報の種類</dt><dd>開いているページのアドレス、どのページから来たか（参照元）、ブラウザ・OS・端末の種類、おおまかな地域（国）、ページの表示にかかった時間などの性能の指標です。氏名・メールアドレス、優待利回りの計算欄や条件で探す欄に入力した内容は送りません。通信の仕組み上、IP アドレスは Cloudflare に届きます。Cloudflare での扱いは、Cloudflare のプライバシーポリシーによります。</dd>
+<dt>止める方法</dt><dd>ブラウザの設定や、コンテンツブロッカーなどの拡張機能で、static.cloudflareinsights.com のスクリプトの読み込みを止めると、計測されません。JavaScript を無効にしても計測されません。止めても、このサイトの表示や機能は変わりません。</dd>
+</dl>
+<h2>今後、ほかのアクセス解析や広告を入れるとき</h2>
+<p>上の Cloudflare Web Analytics のほかに、アクセス解析や広告（Google アドセンスなど）を入れる前に、このページに次の内容を書きます。</p>
 <ul>
 <li>使うサービスの名前と目的</li>
 <li>使う Cookie などの識別情報の種類と、保存の期間</li>
