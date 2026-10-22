@@ -18,6 +18,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 .site-nav{display:flex;flex-wrap:wrap;gap:2px 16px;font-size:14px}
 .site-nav a{padding:4px 8px;border-radius:8px;text-decoration:none}
 .site-nav a:hover{background:var(--primary-weak);color:var(--primary-ink)}
+.site-nav a.nav-rank{background:var(--accent-weak);color:var(--accent-ink);font-weight:700}
+.site-nav a.nav-rank:hover{background:#f6dcc9;color:var(--accent-ink)}
 main{padding-top:16px;padding-bottom:32px}
 h1{font-size:24px;line-height:1.4;margin:8px 0 12px;overflow-wrap:anywhere;color:var(--primary-ink)}
 h2{font-size:19px;line-height:1.4;margin:32px 0 10px;padding-left:10px;border-left:4px solid var(--primary)}
@@ -28,7 +30,7 @@ li{margin:2px 0}
 .lead p{margin:0 0 8px}
 .crumbs{font-size:13px;color:var(--muted)}
 .crumbs a{color:var(--muted)}
-/* トップの最初の画面（hero）: 導入文・要点の札3つ（stat）・入口の札（権利月の丸い札と、優待の種類の色の札） */
+/* トップの最初の画面（hero）: 導入文・要点の札2つ（stat）・入口の札（権利月の丸い札と、優待の種類の色の札） */
 .hero{background:linear-gradient(180deg,var(--primary-weak),var(--bg));border-radius:16px;padding:24px;margin:0 0 8px}
 .hero h1{font-size:30px;margin:0 0 8px}
 .hero .lead{max-width:46em}
@@ -49,6 +51,19 @@ li{margin:2px 0}
 .pill{display:inline-block;padding:2px 12px;border:1px solid var(--primary);border-radius:999px;background:var(--surface);color:var(--primary-ink);font-size:14px;line-height:1.7;text-decoration:none}
 .pill:hover{background:var(--primary-weak)}
 .entry .chip{padding:3px 12px;font-size:13px}
+/* トップのランキングの節（2026-10-22）: hero の中の要点の札の下。強調の色の薄い地（hero の主の色の地から浮かせる）。一覧ごとの白いカード（4列。スマホは2列）。カードの左に単位の印の丸 */
+.rank-board{margin:14px 0 4px;padding:12px 16px 10px;border:1px solid #f1d6c3;border-radius:12px;background:var(--accent-weak)}
+.rank-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
+.rank-head h2{margin:0;border-left-color:var(--accent)}
+.rank-head a{font-size:14px}
+.rank-cards{list-style:none;margin:10px 0 8px;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rank-cards li{margin:0;min-width:0}
+.rank-card{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:10px;height:100%;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);color:var(--text);text-decoration:none}
+.rank-card:hover{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-weak),var(--shadow)}
+.rank-badge{grid-row:1/3;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--accent-weak);color:var(--accent-ink);font-size:15px;font-weight:700}
+.rank-name{font-size:16px;font-weight:700;line-height:1.4;color:var(--primary-ink);overflow-wrap:anywhere}
+.rank-order{font-size:12px;line-height:1.4;color:var(--muted)}
+.rank-board>.small{margin:0}
 /* 札（chip）: 優待の種類は色の札（.cat-<slug>。slug は一覧ページのファイル名と同じ）、継続保有は 必須 = 主の色の線の札・長期優遇 = 強調の薄い地の札。
    リンクの札は下線を引かず、hover で少し濃くする。値が無いとき（記載なし・読み取れず・条件の記載なし）は札にしない */
 .chip{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600;line-height:1.6;white-space:nowrap}
@@ -175,6 +190,11 @@ button:hover{background:var(--primary-weak)}
   .next-day{flex-direction:column;align-items:flex-start;gap:0}
   .entry .chip{padding:5px 12px}
   .pill{padding:4px 14px}
+  .rank-board{padding:10px 10px 8px}
+  .rank-cards{grid-template-columns:repeat(2,1fr);gap:6px}
+  .rank-card{column-gap:8px;padding:8px 10px}
+  .rank-badge{width:30px;height:30px;font-size:13px}
+  .rank-name{font-size:15px}
   .tagline{display:none}
   dl.facts{grid-template-columns:1fr}
   dl.facts dt{border-bottom:none;padding-bottom:2px}
