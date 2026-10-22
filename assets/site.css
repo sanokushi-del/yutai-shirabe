@@ -213,6 +213,9 @@ button:hover{background:var(--primary-weak)}
   .table-wrap[data-cards] td.name{display:block;margin:0 0 2px;font-size:16px;font-weight:700;line-height:1.4}
   .table-wrap[data-cards] td.name::before,.table-wrap[data-cards] td[data-label="コード"]::before{content:none}
   .table-wrap[data-cards] td[data-label="コード"]{float:right;margin:3px 0 0 8px;font-size:12px;color:var(--muted)}
+  /* ランキングの表（改善案9 Z-3）: 順位の番号は、カードの左端に太字で置く（会社名はその右から折り返す。コードは右端） */
+  .table-wrap[data-cards] td[data-label="順位"]{float:left;margin:2px 8px 0 0;font-size:16px;font-weight:700;color:var(--primary-ink)}
+  .table-wrap[data-cards] td[data-label="順位"]::before{content:none}
   /* 見出しの行が隠れるので、並べ替えは表の上の選択欄（assets/sort.js が入れる）で行う（改善案3 U-7） */
   .sort-box{display:flex;gap:8px;margin:10px 0 0}
   .sort-box>div{flex:1;min-width:0}
