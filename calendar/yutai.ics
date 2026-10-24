@@ -1,0 +1,319 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//yutai-shirabe.com//Rights Last Day Calendar//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:優待しらべ 権利付き最終日
+BEGIN:VEVENT
+UID:yutai-last-2026-10-28@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:株主優待 権利付き最終日（20社）
+DESCRIPTION:権利付き最終日の会社: 20社（必要株数100株以
+ 下は14社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2026-10.ht
+ ml#d-2026-10-28
+URL:https://yutai-shirabe.com/calendar/2026-10.html#d-2026-10-28
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2026-11-18@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20261118
+DTEND;VALUE=DATE:20261119
+SUMMARY:株主優待 権利付き最終日（3社）
+DESCRIPTION:権利付き最終日の会社: 3社（必要株数100株以下
+ は3社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2026-11.html#
+ d-2026-11-18
+URL:https://yutai-shirabe.com/calendar/2026-11.html#d-2026-11-18
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2026-11-26@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+SUMMARY:株主優待 権利付き最終日（33社）
+DESCRIPTION:権利付き最終日の会社: 33社（必要株数100株以
+ 下は19社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2026-11.ht
+ ml#d-2026-11-26
+URL:https://yutai-shirabe.com/calendar/2026-11.html#d-2026-11-26
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2026-12-16@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20261216
+DTEND;VALUE=DATE:20261217
+SUMMARY:株主優待 権利付き最終日（2社）
+DESCRIPTION:権利付き最終日の会社: 2社（必要株数100株以下
+ は0社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2026-12.html#
+ d-2026-12-16
+URL:https://yutai-shirabe.com/calendar/2026-12.html#d-2026-12-16
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2026-12-28@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20261228
+DTEND;VALUE=DATE:20261229
+SUMMARY:株主優待 権利付き最終日（162社）
+DESCRIPTION:権利付き最終日の会社: 162社（必要株数100株以
+ 下は102社）。\n基準日の2営業日前として計算した日付
+ で、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2026-12
+ .html#d-2026-12-28
+URL:https://yutai-shirabe.com/calendar/2026-12.html#d-2026-12-28
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-01-18@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270118
+DTEND;VALUE=DATE:20270119
+SUMMARY:株主優待 権利付き最終日（2社）
+DESCRIPTION:権利付き最終日の会社: 2社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-01.html#
+ d-2027-01-18
+URL:https://yutai-shirabe.com/calendar/2027-01.html#d-2027-01-18
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-01-27@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270127
+DTEND;VALUE=DATE:20270128
+SUMMARY:株主優待 権利付き最終日（20社）
+DESCRIPTION:権利付き最終日の会社: 20社（必要株数100株以
+ 下は12社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-01.ht
+ ml#d-2027-01-27
+URL:https://yutai-shirabe.com/calendar/2027-01.html#d-2027-01-27
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-02-17@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270217
+DTEND;VALUE=DATE:20270218
+SUMMARY:株主優待 権利付き最終日（7社）
+DESCRIPTION:権利付き最終日の会社: 7社（必要株数100株以下
+ は5社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-02.html#
+ d-2027-02-17
+URL:https://yutai-shirabe.com/calendar/2027-02.html#d-2027-02-17
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-02-24@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270224
+DTEND;VALUE=DATE:20270225
+SUMMARY:株主優待 権利付き最終日（120社）
+DESCRIPTION:権利付き最終日の会社: 120社（必要株数100株以
+ 下は93社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-02.ht
+ ml#d-2027-02-24
+URL:https://yutai-shirabe.com/calendar/2027-02.html#d-2027-02-24
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-03-11@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270311
+DTEND;VALUE=DATE:20270312
+SUMMARY:株主優待 権利付き最終日（1社）
+DESCRIPTION:権利付き最終日の会社: 1社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-03.html#
+ d-2027-03-11
+URL:https://yutai-shirabe.com/calendar/2027-03.html#d-2027-03-11
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-03-17@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270317
+DTEND;VALUE=DATE:20270318
+SUMMARY:株主優待 権利付き最終日（7社）
+DESCRIPTION:権利付き最終日の会社: 7社（必要株数100株以下
+ は5社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-03.html#
+ d-2027-03-17
+URL:https://yutai-shirabe.com/calendar/2027-03.html#d-2027-03-17
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-03-29@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270329
+DTEND;VALUE=DATE:20270330
+SUMMARY:株主優待 権利付き最終日（686社）
+DESCRIPTION:権利付き最終日の会社: 686社（必要株数100株以
+ 下は455社）。\n基準日の2営業日前として計算した日付
+ で、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-03
+ .html#d-2027-03-29
+URL:https://yutai-shirabe.com/calendar/2027-03.html#d-2027-03-29
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-04-27@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270427
+DTEND;VALUE=DATE:20270428
+SUMMARY:株主優待 権利付き最終日（23社）
+DESCRIPTION:権利付き最終日の会社: 23社（必要株数100株以
+ 下は17社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-04.ht
+ ml#d-2027-04-27
+URL:https://yutai-shirabe.com/calendar/2027-04.html#d-2027-04-27
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-05-12@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270512
+DTEND;VALUE=DATE:20270513
+SUMMARY:株主優待 権利付き最終日（1社）
+DESCRIPTION:権利付き最終日の会社: 1社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-05.html#
+ d-2027-05-12
+URL:https://yutai-shirabe.com/calendar/2027-05.html#d-2027-05-12
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-05-18@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270518
+DTEND;VALUE=DATE:20270519
+SUMMARY:株主優待 権利付き最終日（2社）
+DESCRIPTION:権利付き最終日の会社: 2社（必要株数100株以下
+ は2社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-05.html#
+ d-2027-05-18
+URL:https://yutai-shirabe.com/calendar/2027-05.html#d-2027-05-18
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-05-27@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270527
+DTEND;VALUE=DATE:20270528
+SUMMARY:株主優待 権利付き最終日（31社）
+DESCRIPTION:権利付き最終日の会社: 31社（必要株数100株以
+ 下は22社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-05.ht
+ ml#d-2027-05-27
+URL:https://yutai-shirabe.com/calendar/2027-05.html#d-2027-05-27
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-06-16@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270616
+DTEND;VALUE=DATE:20270617
+SUMMARY:株主優待 権利付き最終日（3社）
+DESCRIPTION:権利付き最終日の会社: 3社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-06.html#
+ d-2027-06-16
+URL:https://yutai-shirabe.com/calendar/2027-06.html#d-2027-06-16
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-06-28@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270628
+DTEND;VALUE=DATE:20270629
+SUMMARY:株主優待 権利付き最終日（111社）
+DESCRIPTION:権利付き最終日の会社: 111社（必要株数100株以
+ 下は69社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-06.ht
+ ml#d-2027-06-28
+URL:https://yutai-shirabe.com/calendar/2027-06.html#d-2027-06-28
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-07-15@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270715
+DTEND;VALUE=DATE:20270716
+SUMMARY:株主優待 権利付き最終日（2社）
+DESCRIPTION:権利付き最終日の会社: 2社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-07.html#
+ d-2027-07-15
+URL:https://yutai-shirabe.com/calendar/2027-07.html#d-2027-07-15
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-07-28@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270728
+DTEND;VALUE=DATE:20270729
+SUMMARY:株主優待 権利付き最終日（25社）
+DESCRIPTION:権利付き最終日の会社: 25社（必要株数100株以
+ 下は17社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-07.ht
+ ml#d-2027-07-28
+URL:https://yutai-shirabe.com/calendar/2027-07.html#d-2027-07-28
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-08-18@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270818
+DTEND;VALUE=DATE:20270819
+SUMMARY:株主優待 権利付き最終日（2社）
+DESCRIPTION:権利付き最終日の会社: 2社（必要株数100株以下
+ は2社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-08.html#
+ d-2027-08-18
+URL:https://yutai-shirabe.com/calendar/2027-08.html#d-2027-08-18
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-08-27@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270827
+DTEND;VALUE=DATE:20270828
+SUMMARY:株主優待 権利付き最終日（103社）
+DESCRIPTION:権利付き最終日の会社: 103社（必要株数100株以
+ 下は80社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-08.ht
+ ml#d-2027-08-27
+URL:https://yutai-shirabe.com/calendar/2027-08.html#d-2027-08-27
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-09-15@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270915
+DTEND;VALUE=DATE:20270916
+SUMMARY:株主優待 権利付き最終日（2社）
+DESCRIPTION:権利付き最終日の会社: 2社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-09.html#
+ d-2027-09-15
+URL:https://yutai-shirabe.com/calendar/2027-09.html#d-2027-09-15
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-09-28@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270928
+DTEND;VALUE=DATE:20270929
+SUMMARY:株主優待 権利付き最終日（328社）
+DESCRIPTION:権利付き最終日の会社: 328社（必要株数100株以
+ 下は230社）。\n基準日の2営業日前として計算した日付
+ で、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-09
+ .html#d-2027-09-28
+URL:https://yutai-shirabe.com/calendar/2027-09.html#d-2027-09-28
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

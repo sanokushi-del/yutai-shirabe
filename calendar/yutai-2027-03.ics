@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//yutai-shirabe.com//Rights Last Day Calendar//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:優待しらべ 権利付き最終日
+BEGIN:VEVENT
+UID:yutai-last-2027-03-11@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270311
+DTEND;VALUE=DATE:20270312
+SUMMARY:株主優待 権利付き最終日（1社）
+DESCRIPTION:権利付き最終日の会社: 1社（必要株数100株以下
+ は1社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-03.html#
+ d-2027-03-11
+URL:https://yutai-shirabe.com/calendar/2027-03.html#d-2027-03-11
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-03-17@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270317
+DTEND;VALUE=DATE:20270318
+SUMMARY:株主優待 権利付き最終日（7社）
+DESCRIPTION:権利付き最終日の会社: 7社（必要株数100株以下
+ は5社）。\n基準日の2営業日前として計算した日付で、
+ 推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-03.html#
+ d-2027-03-17
+URL:https://yutai-shirabe.com/calendar/2027-03.html#d-2027-03-17
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:yutai-last-2027-03-29@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20270329
+DTEND;VALUE=DATE:20270330
+SUMMARY:株主優待 権利付き最終日（686社）
+DESCRIPTION:権利付き最終日の会社: 686社（必要株数100株以
+ 下は455社）。\n基準日の2営業日前として計算した日付
+ で、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2027-03
+ .html#d-2027-03-29
+URL:https://yutai-shirabe.com/calendar/2027-03.html#d-2027-03-29
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

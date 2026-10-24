@@ -105,6 +105,12 @@ details.day>summary time{color:var(--accent-ink)}
 details.day>summary .count{display:inline-block;margin-left:6px;padding:0 10px;border-radius:999px;background:var(--primary-weak);color:var(--primary-ink);font-size:13px;line-height:1.7}
 details.day[open]>summary{border-bottom:1px solid var(--border)}
 details.day>.table-wrap{margin:0;border:none;border-radius:0 0 12px 12px;box-shadow:none}
+/* 権利付き最終日カレンダー（改善案10 A-2）: 日付の見出し（h2#d-…）は、トップの日付ごとの箱の見出しと同じ色・社数の札。あとN日（assets/countdown.js が足す）は強調の色の字 */
+h2[id^="d-"]{scroll-margin-top:8px}
+h2[id^="d-"] time{color:var(--accent-ink)}
+h2[id^="d-"] .count{display:inline-block;margin-left:6px;padding:0 10px;border-radius:999px;background:var(--primary-weak);color:var(--primary-ink);font-size:13px;font-weight:600;line-height:1.7;vertical-align:middle}
+.days-until{margin-left:6px;font-size:13px;font-weight:600;color:var(--accent-ink);white-space:nowrap}
+.cal-top{margin:6px 0 10px}
 table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
 th{background:var(--primary-weak);color:var(--primary-ink);font-weight:600;white-space:nowrap}
@@ -139,6 +145,7 @@ dl.summary>div.wide dd time{font-size:20px}
 dl.summary .sub{font-weight:400;margin-left:.8em}
 dl.summary>div.dim dd{font-size:15px;font-weight:400;color:var(--muted)}
 .summary-note{margin:0 0 8px}
+.combos{margin:-4px 0 12px;line-height:1.7}
 /* 会社ページの「株価から計算した値」（改善案9 Z-2）: 要点の箱（dl.summary）と同じ札を6つ（3列。スマホは2列）。値が無い札（dim）は薄い字。値の出どころの印は小さな箇条書き */
 dl.summary.market{margin:0 0 8px}
 ul.market-marks{margin:0 0 12px;padding-left:1.2em}
@@ -174,6 +181,21 @@ button:hover{background:var(--primary-weak)}
 .note-cta{padding:0 0 28px;font-size:14px}
 .note-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:12px;box-shadow:var(--shadow);padding:12px 16px}
 .note-card p{margin:4px 0}
+.share-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.share-buttons button{font-size:14px}
+.share-url{overflow-wrap:anywhere}
+ul.related{padding-left:1.2em}
+ul.related li{margin:3px 0}
+ul.related .small{display:block}
+.bars{margin:10px 0 4px}
+.bar-row{display:grid;grid-template-columns:5.5em minmax(0,1fr) 5.5em;align-items:center;gap:8px;padding:3px 0;border-bottom:1px solid var(--border)}
+.bar-row:last-child{border-bottom:0}
+.bar-label{font-size:14px;min-width:0}
+.bar-track{display:block;height:14px;background:var(--primary-weak);border-radius:999px;overflow:hidden}
+.bar-fill{display:block;height:100%;background:var(--primary);border-radius:999px}
+.bar-value{text-align:right;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+blockquote{margin:10px 0;padding:10px 14px;border-left:4px solid var(--accent);background:var(--primary-weak);border-radius:0 8px 8px 0}
+blockquote p{margin:0}
 .site-footer{background:var(--primary-ink);color:#fff;border-top:2px solid var(--accent);padding:20px 0 40px;font-size:13px}
 .site-footer p{margin:4px 0}
 .site-footer a{color:#d8ecef;text-decoration:none}
