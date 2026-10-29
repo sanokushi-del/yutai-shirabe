@@ -223,6 +223,34 @@
     writeHash(true);
   });
   $('f-more').addEventListener('click', function () { shown += FIRST; render(); });
+  var copyBtn = $('f-copy'), copyStatus = $('f-copy-status');
+  function setCopyStatus(msg) { if (copyStatus) { copyStatus.textContent = msg; } }
+  function fallbackCopyUrl(val) {
+    var area = document.createElement('textarea');
+    area.value = val;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(area);
+    setCopyStatus(ok ? 'この条件の URL をコピーしました。' : 'コピーできませんでした。アドレス欄の URL をコピーしてください。');
+  }
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      writeHash(false);
+      var url = location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          setCopyStatus('この条件の URL をコピーしました。');
+        }, function () { fallbackCopyUrl(url); });
+      } else {
+        fallbackCopyUrl(url);
+      }
+    });
+  }
   window.addEventListener('hashchange', restore);
   if (!restore()) { search(); }
 })();
