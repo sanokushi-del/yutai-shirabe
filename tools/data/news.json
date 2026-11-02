@@ -1,5 +1,16 @@
 [
   {
+    "auto": true,
+    "code": "9687",
+    "date": "2026-11-02",
+    "kind": "新設",
+    "name": "ＫＳＫ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261102563143.pdf",
+    "summary": "",
+    "title": "株主優待制度の新設に関する補足事項について"
+  },
+  {
     "code": "5341",
     "date": "2026-11-02",
     "kind": "変更",
@@ -7,5 +18,171 @@
     "source_url": "https://www.release.tdnet.info/inbs/140120261020553598.pdf",
     "summary": "優待をデジタルギフト（電子マネー・ポイントなどに交換可）に変更。11月末に100株以上で500円相当、1,000株以上で1,000円相当。2026年11月30日の株主から適用し、案内は2027年3月に送付予定。変更前は100株以上が通販クーポン400円相当、1,000株以上がドリップコーヒー詰め合わせ",
     "title": "株主優待制度の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "9687",
+    "date": "2026-10-30",
+    "kind": "新設",
+    "name": "ＫＳＫ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261030560984.pdf",
+    "summary": "",
+    "title": "株主優待制度の新設に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "8783",
+    "date": "2026-10-30",
+    "kind": "その他",
+    "name": "ａｂｃ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261030561345.pdf",
+    "summary": "",
+    "title": "（開示事項の経過）株主優待ポイントの利用サービス「優待のいずみ」の提携契約の締結および提携に向けた協議の進捗に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4417",
+    "date": "2026-10-30",
+    "kind": "廃止",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261030561697.pdf",
+    "summary": "",
+    "title": "2027年３月期の剰余金の配当（中間配当）、期末配当予想の修正（無配）及び株主優待制度の廃止に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "2700",
+    "date": "2026-10-30",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261029558881.pdf",
+    "summary": "",
+    "title": "株主優待制度の拡充に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "7976",
+    "date": "2026-10-29",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261027556828.pdf",
+    "summary": "",
+    "title": "（開示事項の経過）株主優待制度の内容決定に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "7357",
+    "date": "2026-10-29",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261029558979.pdf",
+    "summary": "",
+    "title": "株主優待発送日の決定に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3691",
+    "date": "2026-10-29",
+    "kind": "拡充",
+    "name": "Ｇ－デジタルプラス",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261029559944.pdf",
+    "summary": "",
+    "title": "2027年９月期 連結業績予想及び株主優待制度の拡充に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "2594",
+    "date": "2026-10-29",
+    "kind": "新設",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261028558216.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更（継続保有要件の追加、「拡充版優待」の新設及び保有株式数区分の追加）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "2533",
+    "date": "2026-10-29",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261028557408.pdf",
+    "summary": "",
+    "title": "株主優待制度の内容に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "9245",
+    "date": "2026-10-28",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261027557258.pdf",
+    "summary": "",
+    "title": "株主優待の一部内容変更（優待品目の変更）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "8095",
+    "date": "2026-10-28",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261028557948.pdf",
+    "summary": "",
+    "title": "株主優待制度における優待区分判定方法の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "7793",
+    "date": "2026-10-28",
+    "kind": "拡充",
+    "name": "Ｇ－イメージマジック",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261028557541.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4275",
+    "date": "2026-10-28",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261028557799.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4992",
+    "date": "2026-10-27",
+    "kind": "新設",
+    "name": "北興化",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261026556304.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3823",
+    "date": "2026-10-27",
+    "kind": "新設",
+    "name": "ＷＨＹ ＨＯＷ ＤＯ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261027556859.pdf",
+    "summary": "",
+    "title": "純金を活用した株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "2894",
+    "date": "2026-10-27",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261023554985.pdf",
+    "summary": "",
+    "title": "株主優待制度の拡充ならびに株主優待における対象条件変更に関するお知らせ"
   }
 ]
