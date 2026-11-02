@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//yutai-shirabe.com//Rights Last Day Calendar//JA
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:優待しらべ 権利付き最終日
+BEGIN:VEVENT
+UID:yutai-last-2028-04-26@yutai-shirabe.com
+DTSTAMP:20261014T000000Z
+DTSTART;VALUE=DATE:20280426
+DTEND;VALUE=DATE:20280427
+SUMMARY:株主優待 権利付き最終日（23社）
+DESCRIPTION:権利付き最終日の会社: 23社（必要株数100株以
+ 下は17社）。\n基準日の2営業日前として計算した日付で
+ 、推定を含みます。\nhttps://yutai-shirabe.com/calendar/2028-04.ht
+ ml#d-2028-04-26
+URL:https://yutai-shirabe.com/calendar/2028-04.html#d-2028-04-26
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
