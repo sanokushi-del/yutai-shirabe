@@ -322,3 +322,16 @@ blockquote p{margin:0}
         grid-template-columns: 1fr;
     }
 }
+/* pp:start 改善案12（tools/postprocess.py が足す部分。手で直さないでください） */
+.tiers h2{margin-top:0}
+.tiers .facts{margin-bottom:8px}
+.subscribe h2{margin-top:0}
+.subscribe-links{display:flex;flex-wrap:wrap;gap:8px}
+.btn-link{display:inline-block;padding:8px 16px;border:1px solid var(--primary);border-radius:8px;background:var(--surface);color:var(--primary);text-decoration:none;font-weight:600}
+.btn-link:hover{background:var(--primary-weak)}
+.news-note{background:var(--accent-weak);border-color:#f0d2bf}
+.news-note ul{margin:4px 0;padding-left:1.2em}
+.news-list{list-style:none;padding:0}
+.news-list li{padding:10px 0;border-bottom:1px solid var(--border)}
+.news-kind{margin:0 4px}
+/* pp:end */

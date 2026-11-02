@@ -1,0 +1,15 @@
+{
+  "_説明": "株数ごとの優待内容（tiers.json）をまだ入れていない、よく検索される会社と、公式の株主優待ページの場所です。ページを開いて確かめた内容だけを tiers.json に入れてください。このファイルはページには出ません。",
+  "2702": {"name": "日本マクドナルドホールディングス", "official_url": "https://www.mcd-holdings.co.jp/ir/individual/shareholder_benefits/"},
+  "3197": {"name": "すかいらーくホールディングス", "official_url": "https://corp.skylark.co.jp/ir/stock/incentive/"},
+  "2695": {"name": "くら寿司", "official_url": "https://www.kurasushi.co.jp/company/ir/stock/yutai.html"},
+  "9936": {"name": "王将フードサービス", "official_url": "https://ir.ohsho.co.jp/shareholder/benefit.html"},
+  "3543": {"name": "コメダホールディングス", "official_url": "https://komeda-holdings.co.jp/benefit/"},
+  "3563": {"name": "FOOD & LIFE COMPANIES（スシロー）", "official_url": "https://food-and-life.co.jp/investor/stock/shareholder-benefit/"},
+  "9861": {"name": "吉野家ホールディングス", "official_url": ""},
+  "7550": {"name": "ゼンショーホールディングス（すき家）", "official_url": ""},
+  "8267": {"name": "イオン", "official_url": ""},
+  "9202": {"name": "ANAホールディングス", "official_url": ""},
+  "9201": {"name": "日本航空（JAL）", "official_url": ""},
+  "4661": {"name": "オリエンタルランド", "official_url": ""}
+}

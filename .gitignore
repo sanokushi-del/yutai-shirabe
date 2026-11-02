@@ -1,0 +1,5 @@
+# 改善案12 の後処理（tools/）で使うが、公開しないもの
+drafts/
+tools/fonts/
+__pycache__/
+*.pyc
