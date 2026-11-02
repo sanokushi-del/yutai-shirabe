@@ -1,0 +1,34 @@
+# C-1 GitHub Pages の公開が終わったら、変わったページを IndexNow（Bing など）に知らせる。
+# 手で全ページを送るときは Actions の画面から「Run workflow」で all にチェックを入れる。
+name: IndexNow
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "サイトマップのすべての URL を送る"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: 変わったページを送る
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            python3 tools/indexnow.py --all
+          else
+            python3 tools/indexnow.py
+          fi

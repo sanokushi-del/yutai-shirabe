@@ -1,0 +1,30 @@
+{
+  "site_url": "https://yutai-shirabe.com",
+  "site_name": "優待しらべ",
+  "google_site_verification": "",
+  "bing_site_verification": "",
+  "indexnow_key": "f4bca880e0018a01364a64cf03720adc",
+  "x_url": "",
+  "note_url": "https://note.com/kabu_azusa",
+  "news_min_entries_to_index": 3,
+  "og_fonts": {
+    "bold": [
+      "tools/fonts/NotoSansJP-Bold.ttf",
+      "C:/Windows/Fonts/YuGothB.ttc",
+      "C:/Windows/Fonts/meiryob.ttc",
+      "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc",
+      "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+      "/usr/share/fonts/truetype/ipafont-gothic/ipag.ttf",
+      "/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf"
+    ],
+    "regular": [
+      "tools/fonts/NotoSansJP-Regular.ttf",
+      "C:/Windows/Fonts/YuGothM.ttc",
+      "C:/Windows/Fonts/meiryo.ttc",
+      "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc",
+      "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+      "/usr/share/fonts/truetype/ipafont-gothic/ipag.ttf",
+      "/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf"
+    ]
+  }
+}
