@@ -1,6 +1,7 @@
 (function () {
   'use strict';
-  // 一覧ページの会社の表の並べ替え（改善案3 U-7）。見出しをボタンにして、押すとその列の昇順・降順に並べ替える。
+  // 一覧ページの会社の表の並べ替え（改善案3 U-7）と堅牢なスクロール位置・アンカー吸着復元。
+  // 見出しをボタンにして、押すとその列の昇順・降順に並べ替える。
   // スマホの幅（見出しの行が隠れる）では、表の上に選択欄も出す（CSS が幅で出し分ける）。並べ替えはこのページの中だけ。どこにも送らない・保存しない。
   // 並べ替えの種類は見出し(th)の data-sort: code = コードを単純に比べる / text = 日本語の辞書順 / num = セルの data-v を数として / date = セルの data-v の文字列
   var wrap = document.querySelector('.table-wrap[data-sortable]');
@@ -15,81 +16,108 @@
   var collator = (typeof Intl === 'object' && Intl.Collator) ? new Intl.Collator('ja', { numeric: true }) : null;     // 数は大きさで比べる（「1年」「2年」「10年」の順）
   function compareText(x, y) { return collator ? collator.compare(x, y) : x.localeCompare(y, 'ja', { numeric: true }); }
 
-  // 行ごとに、並べ替えに使う値を先に読んでおく（null = 値なし）。i = 書き出されたときの順（コード順）
-  function readKey(td, kind) {
-    if (!td) { return null; }
-    var v = td.getAttribute('data-v');
-    if (kind === 'num') {
-      if (v === null || v === '') { return null; }
-      var n = Number(v);
-      return isNaN(n) ? null : n;
-    }
-    if (kind === 'date') { return (v === null || v === '') ? null : v; }
-    var t = td.textContent.replace(/\s+/g, ' ').replace(/^ | $/g, '');
-    return EMPTY.indexOf(t) >= 0 ? null : t;
-  }
-  var kinds = heads.map(function (th) { return th.getAttribute('data-sort'); });
-  var rows = Array.prototype.map.call(tbody.rows, function (tr, i) {
-    return { tr: tr, i: i, keys: heads.map(function (th, k) { return readKey(tr.cells[th.cellIndex], kinds[k]); }) };
+  var kinds = heads.map(function (th) { return th.getAttribute('data-sort') || 'text'; });
+  var labels = heads.map(function (th) { return (th.textContent || '').trim(); });
+  var cur = 0;              // 今の並べ替えの列（既定は0列目 = コード順）
+  var curDesc = false;       // 今の向き（昇順 false / 降順 true）
+  var trs = Array.prototype.slice.call(tbody.rows);
+  var rows = trs.map(function (tr, i) {
+    var cells = Array.prototype.slice.call(tr.cells);
+    var values = heads.map(function (th, j) {
+      var td = cells[j];
+      if (!td) { return null; }
+      var k = kinds[j];
+      var raw = (td.textContent || '').trim();
+      if (k === 'num') {
+        var v = td.getAttribute('data-v');
+        return (v !== null && v !== '') ? Number(v) : null;
+      }
+      if (k === 'date') {
+        var d = td.getAttribute('data-v');
+        return (d !== null && d !== '') ? d : null;
+      }
+      return EMPTY.indexOf(raw) >= 0 ? null : raw;
+    });
+    return { i: i, tr: tr, values: values };
   });
 
   function compare(a, b, k, desc) {
-    var x = a.keys[k], y = b.keys[k];
-    if (x === null || y === null) {
-      if (x === y) { return a.i - b.i; }
-      return x === null ? 1 : -1;                  // 値なしは、昇順でも降順でも常に最後
+    var x = a.values[k], y = b.values[k];
+    if (x === null && y === null) { return a.i - b.i; }
+    if (x === null || y === null) { return x === null ? 1 : -1; }
+    var r = 0;
+    var kind = kinds[k];
+    if (kind === 'num') {
+      r = x === y ? 0 : (x < y ? -1 : 1);
+    } else if (kind === 'date') {
+      r = x === y ? 0 : (x < y ? -1 : 1);
+    } else {
+      r = compareText(x, y);
     }
-    var r = kinds[k] === 'text' ? compareText(x, y) : (x < y ? -1 : (x > y ? 1 : 0));
-    if (r === 0) { return a.i - b.i; }             // 同じ値の中は、書き出されたコード順のまま
+    if (r === 0) { return a.i - b.i; }
     return desc ? -r : r;
   }
 
-  var cur = 0, curDesc = false;                    // 今の並び（heads の何番目の列か・降順か）。書き出し時はコード順
-  heads.forEach(function (th, k) {
-    var a = th.getAttribute('aria-sort');
-    if (a === 'ascending' || a === 'descending') { cur = k; curDesc = a === 'descending'; }
-  });
-
-  // 見出しをボタンに差し替える（JS が無いときはただの見出しのまま）
-  var labels = heads.map(function (th) { return th.textContent.replace(/^\s+|\s+$/g, ''); });
-  heads.forEach(function (th, k) {
+  heads.forEach(function (th, j) {
+    var text = (th.textContent || '').trim();
+    th.textContent = '';
     var b = document.createElement('button');
     b.type = 'button';
-    b.textContent = labels[k];
-    th.textContent = '';
+    b.textContent = text;
+    b.setAttribute('aria-label', text + 'で並べ替える');
+    b.addEventListener('click', function () {
+      var desc = (cur === j) ? !curDesc : false;
+      choose(j, desc);
+    });
     th.appendChild(b);
-    b.addEventListener('click', function () { choose(k, cur === k ? !curDesc : false); });
+    th.setAttribute('aria-sort', j === 0 ? 'ascending' : 'none');
   });
 
-  // スマホの幅で使う選択欄（パソコンの幅では CSS が隠す）と、並べ替えたことを知らせる欄（画面には出さない）
-  function field(id, text, select) {
-    var d = document.createElement('div');
-    var l = document.createElement('label');
-    l.htmlFor = id; l.textContent = text; select.id = id;
-    d.appendChild(l); d.appendChild(select);
-    return d;
-  }
-  function option(value, text) {
-    var o = document.createElement('option');
-    o.value = value; o.textContent = text;
-    return o;
-  }
-  var colSel = document.createElement('select');
-  labels.forEach(function (text, k) { colSel.appendChild(option(String(k), text)); });
-  var dirSel = document.createElement('select');
-  dirSel.appendChild(option('asc', '昇順'));
-  dirSel.appendChild(option('desc', '降順'));
   var box = document.createElement('div');
   box.className = 'sort-box';
-  box.appendChild(field('sort-col', '並べ替え', colSel));
-  box.appendChild(field('sort-dir', '順序', dirSel));
-  var live = document.createElement('p');
-  live.className = 'sr';
-  live.setAttribute('role', 'status');
-  wrap.parentNode.insertBefore(live, wrap);
+  var colDiv = document.createElement('div');
+  var colLab = document.createElement('label');
+  colLab.textContent = '並び順';
+  var colSel = document.createElement('select');
+  colSel.id = 'sort-column';
+  colLab.setAttribute('for', colSel.id);
+  labels.forEach(function (l, j) {
+    var opt = document.createElement('option');
+    opt.value = String(j);
+    opt.textContent = l;
+    colSel.appendChild(opt);
+  });
+  colDiv.appendChild(colLab);
+  colDiv.appendChild(colSel);
+
+  var dirDiv = document.createElement('div');
+  var dirLab = document.createElement('label');
+  dirLab.textContent = '向き';
+  var dirSel = document.createElement('select');
+  dirSel.id = 'sort-direction';
+  dirLab.setAttribute('for', dirSel.id);
+  var optAsc = document.createElement('option');
+  optAsc.value = 'asc';
+  optAsc.textContent = '小さい順（昇順）';
+  var optDesc = document.createElement('option');
+  optDesc.value = 'desc';
+  optDesc.textContent = '大きい順（降順）';
+  dirSel.appendChild(optAsc);
+  dirSel.appendChild(optDesc);
+  dirDiv.appendChild(dirLab);
+  dirDiv.appendChild(dirSel);
+
+  box.appendChild(colDiv);
+  box.appendChild(dirDiv);
   wrap.parentNode.insertBefore(box, wrap);
-  colSel.addEventListener('change', function () { choose(parseInt(colSel.value, 10), dirSel.value === 'desc'); });
-  dirSel.addEventListener('change', function () { choose(parseInt(colSel.value, 10), dirSel.value === 'desc'); });
+
+  colSel.addEventListener('change', function () { choose(Number(colSel.value), dirSel.value === 'desc'); });
+  dirSel.addEventListener('change', function () { choose(Number(colSel.value), dirSel.value === 'desc'); });
+
+  var live = document.createElement('div');
+  live.className = 'sr-only';
+  live.setAttribute('aria-live', 'polite');
+  wrap.parentNode.insertBefore(live, wrap.nextSibling);
 
   function choose(k, desc) {
     cur = k; curDesc = desc;
@@ -104,4 +132,98 @@
   }
   colSel.value = String(cur);
   dirSel.value = curDesc ? 'desc' : 'asc';
+
+  function getStore() {
+    try {
+      if (window.name && window.name.indexOf('{') === 0) {
+        var d = JSON.parse(window.name);
+        if (d && typeof d === 'object') { return d; }
+      }
+    } catch (e) {}
+    return {};
+  }
+  function setStore(k, v) {
+    try {
+      var s = getStore();
+      s[k] = v;
+      window.name = JSON.stringify(s);
+    } catch (e) {}
+  }
+  function getElTop(el) {
+    var top = 0;
+    while (el) { top += el.offsetTop || 0; el = el.offsetParent; }
+    return top;
+  }
+  function saveSortPos(code) {
+    try {
+      var p = location.pathname + location.search;
+      var y = window.pageYOffset || window.scrollY || 0;
+      var s = getStore();
+      var prev = s[p] || {};
+      setStore(p, { y: y, k: cur, d: curDesc, c: code || prev.c || null });
+    } catch (e) {}
+  }
+  function handleLinkTouch(e) {
+    var t = e.target;
+    while (t && t !== document.body) {
+      if (t.tagName === 'A' && t.href) {
+        var m = /\/c\/([0-9A-Z]{4})\.html/.exec(t.href);
+        if (m) { saveSortPos(m[1]); }
+        break;
+      }
+      t = t.parentNode;
+    }
+  }
+  document.addEventListener('touchstart', handleLinkTouch, { passive: true });
+  document.addEventListener('pointerdown', handleLinkTouch, { passive: true });
+  document.addEventListener('click', handleLinkTouch, { passive: true });
+  window.addEventListener('pagehide', function () { saveSortPos(null); });
+
+  function restoreSortPos() {
+    try {
+      if ('scrollRestoration' in history) {
+        try { history.scrollRestoration = 'manual'; } catch (e) {}
+      }
+      var p = location.pathname + location.search;
+      var store = getStore();
+      var data = store[p];
+      if (data) {
+        if (typeof data.k === 'number' && typeof data.d === 'boolean' && (data.k !== cur || data.d !== curDesc)) {
+          choose(data.k, data.d);
+        }
+        function doScroll() {
+          if (data.c) {
+            var el = document.querySelector('a[href*="' + data.c + '.html"]');
+            if (el) {
+              var target = el;
+              var curEl = el;
+              while (curEl && curEl !== document.body) {
+                if (curEl.tagName === 'TR') { target = curEl; break; }
+                curEl = curEl.parentNode;
+              }
+              var top = getElTop(target);
+              var offset = Math.round(window.innerHeight * 0.28);
+              var targetY = Math.max(0, top - offset);
+              window.scrollTo(0, targetY);
+              return;
+            }
+          }
+          if (typeof data.y === 'number' && data.y > 0) {
+            window.scrollTo(0, data.y);
+          }
+        }
+        doScroll();
+        requestAnimationFrame(doScroll);
+        setTimeout(doScroll, 20);
+        setTimeout(doScroll, 80);
+        setTimeout(doScroll, 180);
+        setTimeout(doScroll, 350);
+        setTimeout(doScroll, 600);
+        setTimeout(doScroll, 1000);
+      }
+    } catch (e) {}
+  }
+  restoreSortPos();
+  window.addEventListener('pageshow', restoreSortPos);
+  window.addEventListener('load', restoreSortPos);
 })();

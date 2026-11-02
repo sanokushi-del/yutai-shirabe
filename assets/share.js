@@ -48,4 +48,49 @@
       copy(url);
     }
   });
+  function getStore() {
+    try {
+      if (window.name && window.name.indexOf('{') === 0) {
+        var d = JSON.parse(window.name);
+        if (d && typeof d === 'object') { return d; }
+      }
+    } catch (e) {}
+    return {};
+  }
+  function setStore(k, v) {
+    try {
+      var s = getStore();
+      s[k] = v;
+      window.name = JSON.stringify(s);
+    } catch (e) {}
+  }
+  function saveCompanyPos() {
+    try {
+      var p = location.pathname + location.search;
+      var y = window.pageYOffset || window.scrollY || 0;
+      setStore(p, { y: y });
+    } catch (e) {}
+  }
+  window.addEventListener('pagehide', saveCompanyPos);
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    while (t && t !== document.body) {
+      if (t.tagName === 'A') { saveCompanyPos(); break; }
+      t = t.parentNode;
+    }
+  });
+  function restoreCompanyPos() {
+    try {
+      var p = location.pathname + location.search;
+      var store = getStore();
+      var data = store[p];
+      if (data && typeof data.y === 'number' && data.y > 0) {
+        window.scrollTo(0, data.y);
+        requestAnimationFrame(function () { window.scrollTo(0, data.y); });
+        setTimeout(function () { window.scrollTo(0, data.y); }, 50);
+      }
+    } catch (e) {}
+  }
+  restoreCompanyPos();
+  window.addEventListener('pageshow', restoreCompanyPos);
 })();
