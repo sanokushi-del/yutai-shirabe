@@ -60,7 +60,11 @@ python tools/postprocess.py
 
 ### 新設・変更・廃止のお知らせ（C-9）: `data/news.json`
 
-TDnet（適時開示情報閲覧サービス）で「優待」を含む発表を見て、確かめたものを足します。
+**自動：** `.github/workflows/tdnet-news.yml` が毎日（日本時間 18:37 と 21:43）TDnet の一覧から表題に「優待」を含む発表を拾い（`tools/tdnet_news.py`）、表題・種類・PDF の URL を `data/news.json` に足して公開します。要約は自動では書きません（`"auto": true` の行）。要約を足したいときは、その行の `summary` を書き換えてください。
+
+**手で足すとき：** TDnet（適時開示情報閲覧サービス）で「優待」を含む発表を見て、確かめたものを足します。
+
+**大事：** Actions が main に直接書き込むので、サイトを作り直す前に必ず `git pull` してください。
 
 ```
 python tools/add_news.py --date 2026-11-04 --code 1234 --kind 新設 --title "株主優待制度の新設に関するお知らせ" --summary "100株以上にQUOカード1,000円分（3月末、年1回）" --url "https://..." --label TDnet

@@ -93,14 +93,26 @@ def news_posts(news, start, site_url, names):
         if e["date"] < since:
             continue
         name = names.get(e["code"], e.get("name", ""))
-        lines = [f"【株主優待の{e['kind']}】{name}（{e['code']}）", e["title"]]
-        if e.get("summary"):
-            lines.append(e["summary"])
+        head = [f"【株主優待の{e['kind']}】{name}（{e['code']}）", e["title"]]
+        tail = []
         if (ROOT / f"c/{e['code']}.html").exists():
-            lines.append(f"条件の一覧→ {site_url}/c/{e['code']}.html")
+            tail.append(f"条件の一覧→ {site_url}/c/{e['code']}.html")
         if e.get("source_url"):
-            lines.append(f"出典→ {e['source_url']}")
-        lines.append(TAG)
+            tail.append(f"出典→ {e['source_url']}")
+        tail.append(TAG)
+        summary = e.get("summary") or ""
+        # 280 字に収まるまで要約を短くする（入らなければ要約なし、それでも長ければ出典を外す）
+        while True:
+            body = head + ([summary + ("…" if summary != (e.get("summary") or "") else "")] if summary else []) + tail
+            if x_weighted_length("\n".join(body)) <= LIMIT:
+                break
+            if summary:
+                summary = summary[:-4] if len(summary) > 8 else ""
+            elif any(t.startswith("出典→") for t in tail):
+                tail = [t for t in tail if not t.startswith("出典→")]
+            else:
+                break
+        lines = body
         out.append((f"お知らせ {e['date']} {e['code']}", "\n".join(lines)))
     return out
 

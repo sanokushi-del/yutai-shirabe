@@ -1,0 +1,52 @@
+# C-9 TDnet から「優待」の発表を毎日拾い、お知らせに足して公開する。
+# 手で動かすときは Actions →「TDnet 優待のお知らせ」→「Run workflow」。
+name: TDnet 優待のお知らせ
+
+on:
+  schedule:
+    - cron: "37 9 * * *"    # 日本時間 18:37
+    - cron: "43 12 * * *"   # 日本時間 21:43
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "何日前までを見るか"
+        default: "1"
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: tdnet-news
+  cancel-in-progress: false
+
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: 発表を拾う
+        env:
+          DAYS: ${{ github.event.inputs.days || '1' }}
+        run: python3 tools/tdnet_news.py --days "$DAYS"
+      - name: 作り直して公開する
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- tools/data/news.json; then
+            echo "新しいお知らせはありません"
+            exit 0
+          fi
+          python3 tools/postprocess.py --no-og
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BASE=$(git rev-parse HEAD)
+          git add -A
+          git commit -m "優待のお知らせを足す（TDnet から自動）"
+          git push
+          # GITHUB_TOKEN の push では Pages が作り直されないことがあるので、明示して頼む
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
+          sleep 120
+          python3 tools/indexnow.py --base "$BASE" || true
