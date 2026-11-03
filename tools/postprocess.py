@@ -13,6 +13,7 @@ import argparse
 import datetime
 import json
 import os
+import posixpath
 import re
 import subprocess
 import sys
@@ -21,7 +22,7 @@ from email.utils import format_datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pplib import (DATA, JST, ROOT, STATE, config, esc, html_files, jp_date, load_json,  # noqa: E402
+from pplib import (DATA, JST, ROOT, STATE, clean_tdnet_name, config, esc, html_files, jp_date, load_json,  # noqa: E402
                    prefix_for, save_json, sha, shorten_company_name, strip_tags, today_jst, url_for)
 
 SUFFIX = " | 優待しらべ"
@@ -243,7 +244,8 @@ def render_company_news(entries):
     for e in entries[:3]:
         src = f'（<a href="{esc(e["source_url"])}" rel="noopener">{esc(e.get("source_label") or "会社の発表")}</a>）' if e.get("source_url") else ""
         items.append(f'<li><time datetime="{esc(e["date"])}">{esc(jp_date(e["date"], True))}</time> '
-                     f'<strong>{esc(e["kind"])}</strong>：{esc(e["title"])}{src}</li>')
+                     f'<strong>{esc(e["kind"])}</strong>：{esc(e["title"])}{src}'
+                     + (f'<br><span class="small">{esc(e["summary"])}</span>' if e.get("summary") else "") + "</li>")
     return ('<aside class="card news-note" data-pp="news" aria-label="優待のお知らせ"><p><strong>優待のお知らせ</strong>'
             '（会社の発表を運営者がまとめたもの）</p><ul>' + "".join(items) +
             '</ul><p class="small"><a href="../news/index.html">新設・変更・廃止の一覧</a></p></aside>')
@@ -318,7 +320,7 @@ def step_companies(site, cfg, ctx):
             h = rx.sub(rep, h)
 
         # C-6 株数ごとの優待内容
-        h = re.sub(r'<section class="card tiers"[^>]*data-pp="tiers">.*?</section>', "", h, flags=re.S)
+        h = re.sub(r'<section class="card tiers"[^>]*data-pp="tiers">.*?</section>\n?', "", h, flags=re.S)
         if t and t.get("tiers") and t.get("source_url") and t.get("checked"):
             block = render_tiers(t)
             if "<h2>優待利回りの計算</h2>" in h:
@@ -424,6 +426,19 @@ def step_method(site):
 def page_from_template(site, cfg, template_rel, rel, title, desc, crumbs, main_html, noindex, extra_head=""):
     """同じ深さのページを型にして、新しいページを作る（見出しの帯とフッターは型のまま）。"""
     h = site.get(template_rel)
+    # 型のページの「新設・廃止」のタブは外す（あとで step_news が、新しいページから見た形で足し直す）
+    h = re.sub(r'<a href="[^"]*">新設・廃止</a>', "", h)
+    # 型のページから見た相対リンク（例 guide/ の中の "rights-last-day.html"）を、新しいページから見た形に直す
+    tdir, ndir = posixpath.dirname(template_rel), posixpath.dirname(rel)
+    if tdir != ndir:
+        def fix_link(m):
+            href = m.group(2)
+            if re.match(r"(?:[a-zA-Z][a-zA-Z0-9+.-]*:|#|/)", href):
+                return m.group(0)
+            path, sep, frag = href.partition("#")
+            new = posixpath.relpath(posixpath.normpath(posixpath.join(tdir, path)), ndir or ".")
+            return m.group(1) + new + sep + frag + m.group(3)
+        h = re.sub(r'((?:href|src)=")([^"]*)(")', fix_link, h)
     site_url = cfg["site_url"]
     url = url_for(rel, site_url)
     full = esc(title) + SUFFIX
@@ -461,8 +476,8 @@ def step_news(site, cfg, ctx):
             y, mth = ym.split("-")
             body.append(f"<h2>{int(y)}年{int(mth)}月</h2><ul class=\"news-list\">")
             for e in groups[ym]:
-                name = names.get(e["code"], e.get("name", ""))
-                company = f'<a href="../c/{esc(e["code"])}.html">{esc(name)}（{esc(e["code"])}）</a>' if (ROOT / f'c/{e["code"]}.html').exists() else f'{esc(e.get("name", ""))}（{esc(e["code"])}）'
+                name = names.get(e["code"], clean_tdnet_name(e.get("name", "")))
+                company = f'<a href="../c/{esc(e["code"])}.html">{esc(name)}（{esc(e["code"])}）</a>' if (ROOT / f'c/{e["code"]}.html').exists() else f'{esc(clean_tdnet_name(e.get("name", "")))}（{esc(e["code"])}）'
                 summary = f'。{esc(e["summary"])}' if e.get("summary") else ""
                 src = f'（<a href="{esc(e["source_url"])}" rel="noopener">{esc(e.get("source_label") or "会社の発表")}</a>）' if e.get("source_url") else ""
                 body.append(f'<li><time datetime="{esc(e["date"])}">{esc(jp_date(e["date"]))}</time> '
@@ -499,7 +514,7 @@ def step_news(site, cfg, ctx):
         return format_datetime(dt)
     items = []
     for e in entries[:50]:
-        name = names.get(e["code"], e.get("name", ""))
+        name = names.get(e["code"], clean_tdnet_name(e.get("name", "")))
         link = f'{site_url}/c/{e["code"]}.html' if (ROOT / f'c/{e["code"]}.html').exists() else f"{site_url}/news/index.html"
         desc_i = (e.get("summary") or e["title"]) + (f' 出典: {e["source_url"]}' if e.get("source_url") else "")
         items.append(f'<item><title>{esc("【" + e["kind"] + "】" + name + "（" + e["code"] + "）：" + e["title"])}</title>'

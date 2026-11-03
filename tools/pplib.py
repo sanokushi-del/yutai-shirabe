@@ -120,3 +120,12 @@ def jp_date(d, with_year=False):
         d = datetime.date.fromisoformat(d)
     s = f"{d.month}月{d.day}日（{WEEKDAYS[d.weekday()]}）"
     return (f"{d.year}年" + s) if with_year else s
+
+
+def clean_tdnet_name(name):
+    """TDnet の略称（全角の英数字、グロース市場の「Ｇ－」など）を読みやすい形にする。"""
+    import unicodedata
+
+    s = unicodedata.normalize("NFKC", name or "").strip()
+    s = re.sub(r"^[GＧ][-－‐]\s*", "", s)
+    return s

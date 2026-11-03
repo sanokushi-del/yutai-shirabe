@@ -19,7 +19,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pplib import DATA, ROOT, load_json, save_json, today_jst  # noqa: E402
+from pplib import DATA, ROOT, clean_tdnet_name, load_json, save_json, today_jst  # noqa: E402
 
 BASE = "https://www.release.tdnet.info/inbs/"
 UA = "Mozilla/5.0 (compatible; yutai-shirabe-news/1.0; +https://yutai-shirabe.com/operator.html)"
@@ -126,7 +126,7 @@ def main():
         e = {"date": date, "code": r["code"], "kind": kind_of(r["title"]), "title": r["title"],
              "summary": "", "source_url": r["url"], "source_label": "TDnet", "auto": True}
         if not (ROOT / f"c/{r['code']}.html").exists():
-            e["name"] = r["name"]
+            e["name"] = clean_tdnet_name(r["name"])
         news.append(e)
         known.add(r["url"])
         added += 1

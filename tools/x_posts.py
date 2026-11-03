@@ -15,7 +15,7 @@ from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from pplib import ROOT, DATA, config, jp_date, load_companies, load_json, shorten_company_name, today_jst, x_weighted_length  # noqa: E402
+from pplib import ROOT, DATA, clean_tdnet_name, config, jp_date, load_companies, load_json, shorten_company_name, today_jst, x_weighted_length  # noqa: E402
 
 LIMIT = 280
 TAG = "#株主優待"
@@ -92,7 +92,7 @@ def news_posts(news, start, site_url, names):
     for e in sorted(news, key=lambda e: e["date"], reverse=True):
         if e["date"] < since:
             continue
-        name = names.get(e["code"], e.get("name", ""))
+        name = names.get(e["code"], clean_tdnet_name(e.get("name", "")))
         head = [f"【株主優待の{e['kind']}】{name}（{e['code']}）", e["title"]]
         tail = []
         if (ROOT / f"c/{e['code']}.html").exists():
