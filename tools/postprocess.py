@@ -25,6 +25,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pplib import (DATA, JST, ROOT, STATE, clean_tdnet_name, config, esc, html_files, jp_date, load_json,  # noqa: E402
                    prefix_for, save_json, sha, shorten_company_name, strip_tags, today_jst, url_for)
 import rank_index  # noqa: E402
+import readability  # noqa: E402
+
+KIND_CLASS = {"新設": "kind-new", "再開": "kind-new", "拡充": "kind-up", "変更": "kind-change",
+              "廃止": "kind-end", "休止": "kind-end"}
+
+
+def kind_chip(kind):
+    return f'<span class="chip news-kind {KIND_CLASS.get(kind, "kind-other")}">{esc(kind)}</span>'
 
 SUFFIX = " | 優待しらべ"
 WEBCAL = "webcal://yutai-shirabe.com/calendar/yutai.ics"
@@ -245,7 +253,7 @@ def render_company_news(entries):
     for e in entries[:3]:
         src = f'（<a href="{esc(e["source_url"])}" rel="noopener">{esc(e.get("source_label") or "会社の発表")}</a>）' if e.get("source_url") else ""
         items.append(f'<li><time datetime="{esc(e["date"])}">{esc(jp_date(e["date"], True))}</time> '
-                     f'<strong>{esc(e["kind"])}</strong>：{esc(e["title"])}{src}'
+                     f'{kind_chip(e["kind"])}{esc(e["title"])}{src}'
                      + (f'<br><span class="small">{esc(e["summary"])}</span>' if e.get("summary") else "") + "</li>")
     return ('<aside class="card news-note" data-pp="news" aria-label="優待のお知らせ"><p><strong>優待のお知らせ</strong>'
             '（会社の発表を運営者がまとめたもの）</p><ul>' + "".join(items) +
@@ -428,7 +436,7 @@ def page_from_template(site, cfg, template_rel, rel, title, desc, crumbs, main_h
     """同じ深さのページを型にして、新しいページを作る（見出しの帯とフッターは型のまま）。"""
     h = site.get(template_rel)
     # 型のページの「新設・廃止」のタブは外す（あとで step_news が、新しいページから見た形で足し直す）
-    h = re.sub(r'<a href="[^"]*">新設・廃止</a>', "", h)
+    h = re.sub(r'<a href="[^"]*"[^>]*>新設・廃止</a>', "", h)
     # 型のページから見た相対リンク（例 guide/ の中の "rights-last-day.html"）を、新しいページから見た形に直す
     tdir, ndir = posixpath.dirname(template_rel), posixpath.dirname(rel)
     if tdir != ndir:
@@ -479,10 +487,11 @@ def step_news(site, cfg, ctx):
             for e in groups[ym]:
                 name = names.get(e["code"], clean_tdnet_name(e.get("name", "")))
                 company = f'<a href="../c/{esc(e["code"])}.html">{esc(name)}（{esc(e["code"])}）</a>' if (ROOT / f'c/{e["code"]}.html').exists() else f'{esc(clean_tdnet_name(e.get("name", "")))}（{esc(e["code"])}）'
-                summary = f'。{esc(e["summary"])}' if e.get("summary") else ""
+                summary = f'<p class="news-summary">{esc(e["summary"])}</p>' if e.get("summary") else ""
                 src = f'（<a href="{esc(e["source_url"])}" rel="noopener">{esc(e.get("source_label") or "会社の発表")}</a>）' if e.get("source_url") else ""
-                body.append(f'<li><time datetime="{esc(e["date"])}">{esc(jp_date(e["date"]))}</time> '
-                            f'<span class="chip news-kind">{esc(e["kind"])}</span> {company}：{esc(e["title"])}{summary}{src}</li>')
+                body.append(f'<li class="news-item"><div class="news-meta"><time datetime="{esc(e["date"])}">{esc(jp_date(e["date"]))}</time>'
+                            f'{kind_chip(e["kind"])}</div><div class="news-body"><p class="news-co">{company}</p>'
+                            f'<p class="news-title">{esc(e["title"])}{src}</p>{summary}</div></li>')
             body.append("</ul>")
     else:
         body.append("<p>まだ載せているお知らせはありません。会社の発表を確かめたものから順に載せます。</p>")
@@ -533,14 +542,14 @@ def step_news(site, cfg, ctx):
 
     # 見出しの帯のリンク（お知らせが1件以上あるときだけ）
     show = bool(entries)
-    rx_nav = re.compile(r'<a href="[^"]*news/index\.html">新設・廃止</a>')
+    rx_nav = re.compile(r'<a href="[^"]*news/index\.html"[^>]*>新設・廃止</a>')
     for rel in ctx["html"] + ["news/index.html"]:
         h = site.get(rel)
         nh = rx_nav.sub("", h)
         if show:
             # 404.html は絶対 URL、calendar/ の中は "index.html" など、カレンダーのリンクの書き方がページで違う
             pre = (cfg["site_url"] + "/") if rel == "404.html" else prefix_for(rel)
-            nh = re.sub(r'(<nav class="site-nav"[^>]*>.*?<a href="[^"]*">カレンダー</a>)',
+            nh = re.sub(r'(<nav class="site-nav"[^>]*>.*?<a href="[^"]*"[^>]*>カレンダー</a>)',
                         lambda mc: mc.group(1) + f'<a href="{pre}news/index.html">新設・廃止</a>', nh, count=1, flags=re.S)
         if rel == "index.html":
             nh = re.sub(r'<link rel="alternate" type="application/rss\+xml"[^>]*>\n?', "", nh)
@@ -660,9 +669,6 @@ CSS_BLOCK = """/* pp:start 改善案12（tools/postprocess.py が足す部分。
 .btn-link:hover{background:var(--primary-weak)}
 .news-note{background:var(--accent-weak);border-color:#f0d2bf}
 .news-note ul{margin:4px 0;padding-left:1.2em}
-.news-list{list-style:none;padding:0}
-.news-list li{padding:10px 0;border-bottom:1px solid var(--border)}
-.news-kind{margin:0 4px}
 /* pp:end */
 """
 
@@ -673,7 +679,31 @@ def step_css(site):
     t = re.sub(r"/\* pp:start.*?/\* pp:end \*/\n?", "", t, flags=re.S)
     if not t.endswith("\n"):
         t += "\n"
-    site.put(rel, t + CSS_BLOCK.replace("/* pp:end */", rank_index.CSS + "/* pp:end */"))
+    site.put(rel, t + CSS_BLOCK.replace("/* pp:end */", rank_index.CSS + readability.CSS + "/* pp:end */"))
+
+
+# ---------------------------------------------------------------------------
+# 見やすさの直し（タブの今いるページ・リンクの一覧のカード・作り方の目次・月別カレンダーのカード）
+# ---------------------------------------------------------------------------
+def step_readability(site, ctx):
+    n = 0
+    for rel in ctx["html"] + ["news/index.html"]:
+        if not site.exists(rel):
+            continue
+        h = site.get(rel)
+        nh = readability.mark_nav(h, rel)
+        if 'class="links"' in nh:
+            nh = readability.link_counts(nh)
+        if rel == "method.html":
+            nh = readability.method_toc(nh)
+        if rel == "calendar/index.html":
+            nh = readability.calendar_cards(nh)
+        if rel == "guide/ex-rights-stats.html":
+            nh = readability.stats_ranges(nh)
+        if nh != h:
+            site.put(rel, nh)
+            n += 1
+    log(f"  見やすさの直し: {n} ファイル")
 
 
 # ---------------------------------------------------------------------------
@@ -835,6 +865,7 @@ def main():
     step_news(site, cfg, ctx)
     step_calendar(site, ctx)
     step_rank_index(site, ctx)
+    step_readability(site, ctx)
     og_paths = {}
     if not args.no_og and not args.check:
         import og_images

@@ -32,14 +32,15 @@
 <header class="site-header"><div class="wrap">
 <a class="brand" href="index.html"><svg class="brand-mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="24" height="24" rx="6" fill="currentColor"/><path d="M7 4.5h8a1 1 0 0 1 1 1v14l-5-3.6-5 3.6v-14a1 1 0 0 1 1-1z" fill="#fff"/><circle cx="11" cy="9.8" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12.8 11.6l1.7 1.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>優待しらべ</a>
 <span class="tagline">株主優待の条件データベース</span>
-<nav class="site-nav" aria-label="主なページ"><a href="list/index.html">条件で探す</a><a href="rank/index.html" class="nav-rank">ランキング</a><a href="calendar/index.html">カレンダー</a><a href="news/index.html">新設・廃止</a><a href="guide/rights-last-day.html">権利付き最終日の数え方</a><a href="guide/ex-rights-stats.html">権利落ちの統計</a><a href="method.html">作り方と限界</a></nav>
+<nav class="site-nav" aria-label="主なページ"><a href="list/index.html">条件で探す</a><a href="rank/index.html" class="nav-rank">ランキング</a><a href="calendar/index.html">カレンダー</a><a href="news/index.html">新設・廃止</a><a href="guide/rights-last-day.html">権利付き最終日の数え方</a><a href="guide/ex-rights-stats.html">権利落ちの統計</a><a href="method.html" aria-current="page">作り方と限界</a></nav>
 </div></header>
 <main id="main" class="wrap">
 <nav class="crumbs" aria-label="現在地"><a href="index.html">トップ</a> ＞ データの作り方と限界</nav>
 <h1>データの作り方と限界</h1>
+<nav class="toc" aria-label="このページの目次"><ul class="pills"><li><a class="pill" href="#making">データの作り方</a></li><li><a class="pill" href="#terms">項目の意味</a></li><li><a class="pill" href="#read-company">会社ページの補足</a></li><li><a class="pill" href="#market">株価から計算した値</a></li><li><a class="pill" href="#limits">限界</a></li><li><a class="pill" href="#errors">既知の誤り</a></li><li><a class="pill" href="#update">更新</a></li></ul></nav>
 
 <!-- 広告の置き場所 -->
-<h2>データの作り方</h2>
+<h2 id="making">データの作り方</h2>
 <ol>
 <li>EDINET（金融庁の開示システム）の API から、上場会社の有価証券報告書（有報）を取得します。取得するのは各社の最新の有報です。</li>
 <li>有報の「株式事務の概要」にある「株主に対する特典」欄を、規則（プログラム）で読み取ります。優待の有無・権利月・基準日・必要株数・継続保有の条件・優待の種類・金額を項目にします。</li>
@@ -91,7 +92,7 @@
 <li>終値そのもの、銘柄ごとの株価は載せていません。載せているのは、上の式で計算した値だけです。</li>
 <li>割安・割高や売買を判断するものではありません。</li>
 </ul>
-<h2>限界（先にお読みください）</h2>
+<h2 id="limits">限界（先にお読みください）</h2>
 <ul>
 <li>有報は年に1回です。期中に優待が新設・変更・廃止されても、次の有報が出るまで（最大1年）は反映されません。</li>
 <li>有報の特典欄に優待を書かない会社があります。優待を実施していても載っていない会社があるため、このサイトは「有報に書かれている優待の一覧」です。印「引当金あり」は、優待があった手がかりにすぎません。</li>
@@ -100,9 +101,9 @@
 <li>選択式の優待（いずれかを選ぶ）や、基準日が複数あっても優待は年1回の会社では、年の金額が実際と違うことがあります。</li>
 <li>権利付き最終日は、通常の営業日の数え方による計算です。取引所の臨時休業・売買停止、祝日法の改正は反映できません。</li>
 </ul>
-<h2>既知の誤り</h2>
+<h2 id="errors">既知の誤り</h2>
 <p>見つけた誤りは規則を直して反映していますが、直せていない型が残っています（上の「限界」に書いた、選択式の優待の年額など）。誤りを見つけたときは、<a href="contact.html">お問い合わせ</a>から、会社名・コード・違っている項目・根拠（有報のどこに何と書かれているか）を添えてお知らせください。</p>
-<h2>更新</h2>
+<h2 id="update">更新</h2>
 <p>データの更新は月1回程度です。会社ページに、データ確認日（EDINET の書類一覧を見た最後の日）と EDINET の書類IDを載せています。サイト全体の作成日は、各ページのフッターにあります。数字を1ページにまとめた<a href="stats/2026.html">株主優待の統計 2026年版</a>と、集計だけの CSV も公開しています。</p>
 </main>
 <aside class="note-cta"><div class="wrap"><div class="note-card">
