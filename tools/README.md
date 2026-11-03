@@ -32,6 +32,8 @@ python tools/postprocess.py
 
 全ページに `<meta name="robots" content="max-image-preview:large">` も足します（noindex のページを除く）。
 
+ランキングの目次（`rank/index.html`）は、各ランキングのページ（`rank/*.html`）の表から上位3社を読み取って、カードの形に組み直します（`rank_index.py`、`step_rank_index`）。節の分け方・短い名前・式は `rank_index.py` の `SECTIONS`・`LABEL`・`FORMULA` で変えられます。
+
 ## 手で入れるデータ
 
 ### 株数ごとの優待内容（C-6）: `data/tiers.json`

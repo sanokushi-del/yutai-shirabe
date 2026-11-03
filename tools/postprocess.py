@@ -24,6 +24,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pplib import (DATA, JST, ROOT, STATE, clean_tdnet_name, config, esc, html_files, jp_date, load_json,  # noqa: E402
                    prefix_for, save_json, sha, shorten_company_name, strip_tags, today_jst, url_for)
+import rank_index  # noqa: E402
 
 SUFFIX = " | 優待しらべ"
 WEBCAL = "webcal://yutai-shirabe.com/calendar/yutai.ics"
@@ -672,7 +673,31 @@ def step_css(site):
     t = re.sub(r"/\* pp:start.*?/\* pp:end \*/\n?", "", t, flags=re.S)
     if not t.endswith("\n"):
         t += "\n"
-    site.put(rel, t + CSS_BLOCK)
+    site.put(rel, t + CSS_BLOCK.replace("/* pp:end */", rank_index.CSS + "/* pp:end */"))
+
+
+# ---------------------------------------------------------------------------
+# ランキングの目次を、各ランキングの上位3社を見せるカードの形に
+# ---------------------------------------------------------------------------
+def step_rank_index(site, ctx):
+    rel = "rank/index.html"
+    if not site.exists(rel):
+        return
+    pages = {}
+    for r in ctx["html"]:
+        m = re.match(r"rank/([a-z0-9-]+)\.html$", r)
+        if not m or m.group(1) == "index":
+            continue
+        info = rank_index.parse_rank_page(site.get(r))
+        if info and info["rows"]:
+            pages[m.group(1)] = info
+    if not pages:
+        return
+    main_html = rank_index.build_main(pages, ctx["build_date"])
+    h = site.get(rel)
+    h = re.sub(r'<main id="main" class="wrap">.*?</main>', lambda _m: main_html, h, count=1, flags=re.S)
+    site.put(rel, h)
+    log(f"  ランキングの目次: {len(pages)} のランキングの上位{rank_index.TOP_N}社")
 
 
 # ---------------------------------------------------------------------------
@@ -809,6 +834,7 @@ def main():
     step_method(site)
     step_news(site, cfg, ctx)
     step_calendar(site, ctx)
+    step_rank_index(site, ctx)
     og_paths = {}
     if not args.no_og and not args.check:
         import og_images
