@@ -73,16 +73,6 @@
   },
   {
     "auto": true,
-    "code": "7357",
-    "date": "2026-10-29",
-    "kind": "その他",
-    "source_label": "TDnet",
-    "source_url": "https://www.release.tdnet.info/inbs/140120261029558979.pdf",
-    "summary": "",
-    "title": "株主優待発送日の決定に関するお知らせ"
-  },
-  {
-    "auto": true,
     "code": "3691",
     "date": "2026-10-29",
     "kind": "拡充",
@@ -96,7 +86,7 @@
     "auto": true,
     "code": "2594",
     "date": "2026-10-29",
-    "kind": "新設",
+    "kind": "拡充",
     "source_label": "TDnet",
     "source_url": "https://www.release.tdnet.info/inbs/140120261028558216.pdf",
     "summary": "",
