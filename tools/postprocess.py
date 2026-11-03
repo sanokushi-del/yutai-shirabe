@@ -517,13 +517,14 @@ def step_news(site, cfg, ctx):
 
     # 見出しの帯のリンク（お知らせが1件以上あるときだけ）
     show = bool(entries)
-    rx_nav = re.compile(r'<a href="(?:\.\./)*news/index\.html">新設・廃止</a>')
+    rx_nav = re.compile(r'<a href="[^"]*news/index\.html">新設・廃止</a>')
     for rel in ctx["html"] + ["news/index.html"]:
         h = site.get(rel)
         nh = rx_nav.sub("", h)
         if show:
-            pre = prefix_for(rel)
-            nh = re.sub(r'(<nav class="site-nav"[^>]*>.*?<a href="(?:\.\./)*calendar/index\.html">カレンダー</a>)',
+            # 404.html は絶対 URL、calendar/ の中は "index.html" など、カレンダーのリンクの書き方がページで違う
+            pre = (cfg["site_url"] + "/") if rel == "404.html" else prefix_for(rel)
+            nh = re.sub(r'(<nav class="site-nav"[^>]*>.*?<a href="[^"]*">カレンダー</a>)',
                         lambda mc: mc.group(1) + f'<a href="{pre}news/index.html">新設・廃止</a>', nh, count=1, flags=re.S)
         if rel == "index.html":
             nh = re.sub(r'<link rel="alternate" type="application/rss\+xml"[^>]*>\n?', "", nh)
