@@ -1,6 +1,59 @@
 [
   {
     "auto": true,
+    "code": "9324",
+    "date": "2026-11-05",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261105565945.pdf",
+    "summary": "",
+    "title": "株式分割、配当予想の修正（増配）及び株主優待品贈呈基準の修正に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "8783",
+    "date": "2026-11-05",
+    "kind": "変更",
+    "name": "abc",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261105566361.pdf",
+    "summary": "",
+    "title": "（開示事項の経過）株主優待ポイントの利用サービス「優待のいずみ」の提携先でのご利用開始日の変更およびご利用方法の一部変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "7917",
+    "date": "2026-11-05",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261104563448.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6050",
+    "date": "2026-11-05",
+    "kind": "廃止",
+    "name": "Eガーディアン",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261105565499.pdf",
+    "summary": "",
+    "title": "株主優待制度の廃止及び株主還元方針の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4689",
+    "date": "2026-11-05",
+    "kind": "新設",
+    "name": "LINEヤフー",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261105565141.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "3202",
     "date": "2026-11-04",
     "kind": "変更",
