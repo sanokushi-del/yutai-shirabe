@@ -1,6 +1,37 @@
 [
   {
     "auto": true,
+    "code": "9816",
+    "date": "2026-11-06",
+    "kind": "変更",
+    "name": "ストライダーズ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261106567480.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "9475",
+    "date": "2026-11-06",
+    "kind": "廃止",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261106567899.pdf",
+    "summary": "",
+    "title": "2027年３月期配当予想の修正（無配）及び株主優待制度の廃止に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6332",
+    "date": "2026-11-06",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261106567125.pdf",
+    "summary": "",
+    "title": "株主優待制度に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "9324",
     "date": "2026-11-05",
     "kind": "その他",
