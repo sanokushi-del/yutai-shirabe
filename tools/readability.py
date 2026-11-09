@@ -3,6 +3,7 @@
 - 見出しの帯（タブ）: 今いるページ・その仲間のページのタブに aria-current を付けて、色で示す
 - リンクの一覧（ul.links）: 社数を札にして、1件ずつのカードにする
 - 作り方と限界（method.html）: ページの先頭に目次
+- ランキングのページ: 計算の決め方などの説明を、開け閉めできる箱に
 - 月別カレンダー（calendar/index.html）: 月の名前をその月の一覧へのリンクにし、スマホでは1か月を1枚のカードにする
 CSS は CSS（step_css が site.css の pp:start〜pp:end に入れる）。どれも何度かけても同じ結果になる。
 """
@@ -82,6 +83,20 @@ def method_toc(h):
 def stats_ranges(h):
     """権利落ちの統計の表の「95%区間 X〜Y」の X〜Y を折り返さない（折り返すのは「95%区間」の後ろだけ）。"""
     return re.sub(r'(<span class="sub">95%区間 )([^<]+)(</span>)', r'\1<span class="nw">\2</span>\3', h)
+
+
+def rank_facts_fold(h):
+    """ランキングのページの「計算の決め方・基準の日・並べ方・対象外の会社」を、開け閉めできる箱にする（ランキングを先に見せる）。"""
+    if 'class="rank-about"' in h:
+        return h
+    m = re.search(r'<dl class="facts rank-facts">.*?</dl>', h, re.S)
+    if not m:
+        return h
+    f = re.search(r"<dt>計算の決め方</dt>\s*<dd>(.*?)</dd>", m.group(0), re.S)
+    formula = strip_tags(f.group(1)).split("。")[0] if f else ""
+    summary = ('<summary>計算の決め方・基準の日・対象の会社'
+               + (f'<span class="rank-about-formula">{esc(formula)}</span>' if formula else "") + "</summary>")
+    return h[:m.start()] + f'<details class="rank-about">{summary}{m.group(0)}</details>' + h[m.end():]
 
 
 CAL_LABELS = [None, ("権利付き最終日", "最終日"), ("社数", None), ("必要株数100株以下の社数", "100株以下"), ("ページ", None)]
@@ -166,12 +181,35 @@ h2[id]{scroll-margin-top:8px}
 .kind-end{background:#fbe3e1;color:#992b22}
 .kind-other{background:#ebe8e1;color:var(--muted)}
 .news-note .news-kind{margin-right:4px}
+details.rank-about{margin:12px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+details.rank-about>summary{cursor:pointer;padding:10px 14px;font-weight:600;line-height:1.5;color:var(--primary-ink)}
+details.rank-about>summary::marker{color:var(--primary)}
+.rank-about-formula{display:block;font-size:13px;font-weight:400;color:var(--muted)}
+details.rank-about[open]>summary{border-bottom:1px solid var(--border)}
+details.rank-about>dl.facts{margin:0;border:none;border-radius:0 0 12px 12px;box-shadow:none}
+.news-top{margin:14px 0 18px;padding:12px 16px 10px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.news-top .rank-head h2{border-left-color:var(--primary)}
+.news-top ul{list-style:none;margin:8px 0 6px;padding:0}
+.news-top li{display:grid;grid-template-columns:7.2em auto minmax(0,1fr);gap:2px 10px;align-items:baseline;margin:0;padding:8px 0;border-top:1px solid var(--border);font-size:14px;line-height:1.55}
+.news-top time{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.news-top-text strong a{color:var(--primary-ink);text-decoration:none}
+.news-top-text strong a:hover{text-decoration:underline}
+.news-top>.small{margin:0}
+.news-top .news-kind{justify-self:start}
 @media (min-width:641px){
   td.name{min-width:12.5em}
   td[data-label="継続保有"] .chip{white-space:normal;border-radius:10px}
   td.cal-month{min-width:0;white-space:nowrap}
 }
 @media (max-width:640px){
+  .filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .filters>div:first-child{grid-column:1/-1}
+  .filters label{font-size:13px}
+  .filters input[type=text],.filters select{box-sizing:border-box;height:44px;width:100%}
+  .news-top{padding:10px 12px 8px}
+  .news-top li{grid-template-columns:auto minmax(0,1fr)}
+  .news-top-text{grid-column:1/-1}
+  .news-top li:nth-child(n+4){display:none}
   ul.links{grid-template-columns:1fr;gap:6px}
   ul.links li{padding:9px 12px}
   ul.links a{font-size:14px}

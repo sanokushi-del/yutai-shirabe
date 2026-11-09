@@ -4,6 +4,7 @@
   python tools/tdnet_news.py              # 今日と昨日（日本時間）
   python tools/tdnet_news.py --days 7     # 7日前まで
   python tools/tdnet_news.py --dry-run    # 足さずに、拾った発表だけ出す
+  python tools/tdnet_news.py --reclassify # 自動で足した行の種類を、いまの決め方で付け直す
 
 載せるのは「発表日・会社・種類（表題から判断）・表題・PDF の URL」だけ。要約は自動では書かない
 （手で書いた要約があれば、そのまま残す）。GitHub Actions（.github/workflows/tdnet-news.yml）から毎日動く。
@@ -33,15 +34,21 @@ KIND_RULES = [
     ("拡充", r"拡充|拡大|増額|充実"),
     ("新設", r"新設|導入|開始"),
     ("休止", r"休止|中止|停止"),
-    ("変更", r"変更|改定|見直し"),
+    ("変更", r"変更|改定|見直し|修正"),
 ]
+# 表題を「及び」「、」などで分け、「優待」を含む部分だけで種類を決める（「定款一部変更」「配当予想の修正」などに引っぱられない）
+CLAUSE_SPLIT = re.compile(r"及び|および|並びに|ならびに|、|，")
 # 優待の制度の発表でないもの・訂正などは拾わない
 SKIP = re.compile(r"訂正|取消|延期のお知らせ|株主優待引当金|発送日|発送時期")
 
 
 def kind_of(title):
+    # 「（開示事項の経過）」は、前に出した発表の続き（日付や提携先の連絡など）なので種類を決めない
+    if re.match(r"[（(]開示事項の経過[）)]", title):
+        return "その他"
+    target = "".join(c for c in CLAUSE_SPLIT.split(title) if "優待" in c) or title
     for kind, rx in KIND_RULES:
-        if re.search(rx, title):
+        if re.search(rx, target):
             return kind
     return "その他"
 
@@ -103,7 +110,23 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--days", type=int, default=1, help="何日前までを見るか（0 なら今日だけ）")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--reclassify", action="store_true", help="自動で足した行（auto）の種類を、いまの決め方で付け直すだけ")
     args = ap.parse_args()
+
+    if args.reclassify:
+        path = DATA / "news.json"
+        news = load_json(path, [])
+        n = 0
+        for e in news:
+            if e.get("auto") and e.get("kind") != kind_of(e["title"]):
+                print(f"  {e['date']} {e['code']} {e['kind']} → {kind_of(e['title'])}：{e['title']}")
+                if not args.dry_run:
+                    e["kind"] = kind_of(e["title"])
+                n += 1
+        if n and not args.dry_run:
+            save_json(path, news)
+        print(f"付け直した件数: {n}")
+        return
 
     today = today_jst()
     found = []

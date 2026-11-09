@@ -256,8 +256,26 @@ def render_company_news(entries):
                      f'{kind_chip(e["kind"])}{esc(e["title"])}{src}'
                      + (f'<br><span class="small">{esc(e["summary"])}</span>' if e.get("summary") else "") + "</li>")
     return ('<aside class="card news-note" data-pp="news" aria-label="優待のお知らせ"><p><strong>優待のお知らせ</strong>'
-            '（会社の発表を運営者がまとめたもの）</p><ul>' + "".join(items) +
+            '（会社の発表から。種類は表題から判定）</p><ul>' + "".join(items) +
             '</ul><p class="small"><a href="../news/index.html">新設・変更・廃止の一覧</a></p></aside>')
+
+
+def render_news_top(entries, names, n=5):
+    """トップのページの「株主優待の新設・変更・廃止」の欄（新しい順に n 件）。"""
+    items = []
+    for e in entries[:n]:
+        name = names.get(e["code"], clean_tdnet_name(e.get("name", "")))
+        if (ROOT / f'c/{e["code"]}.html').exists():
+            company = f'<a href="c/{esc(e["code"])}.html">{esc(name)}（{esc(e["code"])}）</a>'
+        else:
+            company = f'{esc(clean_tdnet_name(e.get("name", "")))}（{esc(e["code"])}）'
+        items.append(f'<li><time datetime="{esc(e["date"])}">{esc(jp_date(e["date"]))}</time>{kind_chip(e["kind"])}'
+                     f'<span class="news-top-text"><strong>{company}</strong> {esc(e["title"])}</span></li>')
+    return ('<section class="news-top" data-pp="news-top" aria-labelledby="news-top-title"><div class="rank-head">'
+            '<h2 id="news-top-title">株主優待の新設・変更・廃止</h2><a href="news/index.html">すべてのお知らせ →</a></div>'
+            f'<ul>{"".join(items)}</ul>'
+            '<p class="small">会社の発表（TDnet の適時開示）のうち、表題に「優待」を含むものを毎日自動で載せています。'
+            '<a href="news/feed.xml">RSS</a></p></section>\n')
 
 
 def step_companies(site, cfg, ctx):
@@ -494,13 +512,14 @@ def step_news(site, cfg, ctx):
                             f'<p class="news-title">{esc(e["title"])}{src}</p>{summary}</div></li>')
             body.append("</ul>")
     else:
-        body.append("<p>まだ載せているお知らせはありません。会社の発表を確かめたものから順に載せます。</p>")
+        body.append("<p>まだ載せているお知らせはありません。会社の発表があれば順に載せます。</p>")
 
     main = ('<main id="main" class="wrap">\n'
             '<nav class="crumbs" aria-label="現在地"><a href="../index.html">トップ</a> ＞ 株主優待の新設・変更・廃止</nav>\n'
             f'<h1>株主優待の新設・変更・廃止のお知らせ【{year}年】</h1>\n'
             '<div class="lead"><p>会社が発表した株主優待の新設・拡充・変更・廃止を、発表日の新しい順に載せています。'
-            '会社の発表（適時開示など）を運営者が確かめてまとめたものです。正式な内容は、各行の出典の発表をご覧ください。</p></div>\n'
+            'TDnet（適時開示）の発表のうち表題に「優待」を含むものを毎日自動で集め、種類（新設・変更など）は表題から判定しています。'
+            '要約があるものは、運営者が発表を読んでまとめたものです。正式な内容は、各行の出典の発表をご覧ください。</p></div>\n'
             '<p class="small"><a href="feed.xml">RSS で受け取る</a>（新しいお知らせを、RSS リーダーで受け取れます）</p>\n'
             + "\n".join(body) +
             '\n<h2>有価証券報告書の特典欄の語から</h2>\n'
@@ -534,7 +553,7 @@ def step_news(site, cfg, ctx):
     feed = ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
             '<title>優待しらべ｜株主優待の新設・変更・廃止</title>'
             f'<link>{site_url}/news/index.html</link>'
-            '<description>会社が発表した株主優待の新設・拡充・変更・廃止を、運営者が確かめてまとめたお知らせです。</description>'
+            '<description>会社が発表した株主優待の新設・拡充・変更・廃止のお知らせです（TDnet の適時開示から自動で掲載）。</description>'
             '<language>ja</language>'
             f'<atom:link href="{site_url}/news/feed.xml" rel="self" type="application/rss+xml"/>'
             f'<lastBuildDate>{last}</lastBuildDate>' + "".join(items) + "</channel></rss>\n")
@@ -562,8 +581,14 @@ def step_news(site, cfg, ctx):
         h = re.sub(r'<p data-pp="news-link">.*?</p>', "", h)
         if show:
             h = h.replace("<h2>優待の変化</h2>", '<h2>優待の変化</h2><p data-pp="news-link"><a href="../news/index.html">'
-                          '会社が発表した新設・変更・廃止のお知らせ（運営者が確かめたもの）</a></p>', 1)
+                          '会社が発表した新設・変更・廃止のお知らせ（TDnet から毎日自動で掲載）</a></p>', 1)
         site.put("list/index.html", h)
+    if site.exists("index.html"):
+        h = site.get("index.html")
+        h = re.sub(r'<section class="news-top".*?</section>\n?', "", h, flags=re.S)
+        if show:
+            h = h.replace('<section id="search" class="card">', render_news_top(entries, names) + '<section id="search" class="card">', 1)
+        site.put("index.html", h)
     log(f"  お知らせ: {len(entries)} 件（{'noindex' if noindex else '検索に出す'}）")
 
 
@@ -700,6 +725,8 @@ def step_readability(site, ctx):
             nh = readability.calendar_cards(nh)
         if rel == "guide/ex-rights-stats.html":
             nh = readability.stats_ranges(nh)
+        if rel.startswith("rank/") and rel != "rank/index.html":
+            nh = readability.rank_facts_fold(nh)
         if nh != h:
             site.put(rel, nh)
             n += 1
