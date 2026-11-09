@@ -107,7 +107,7 @@ python tools/postprocess.py
 
 ## IndexNow（C-1）
 
-`.github/workflows/indexnow.yml` が、GitHub Pages の公開（pages-build-deployment）が終わるたびに、直前のコミットで変わったページを送ります。
+`.github/workflows/indexnow.yml` が、GitHub Pages の公開（pages-build-deployment）が終わるたびに、前に公開に成功したコミットから変わったページを送ります（途中の公開が失敗しても、そのコミットで変わったページが漏れません）。
 全ページを送るときは、GitHub の Actions →「IndexNow」→「Run workflow」で all にチェック。手元からは `python tools/indexnow.py --all`。
 
 ## X の投稿文・note の下書き（C-10）
@@ -131,3 +131,4 @@ GitHub の Actions の「pages build and deployment」が赤い × になり、d
 - まず、その実行の「Re-run all jobs」で、もう一度実行します。
 - それでも同じように止まるときは、同じコミットのやり直しでは配信が始まらないことがあります。何か1つコミットを送ると、新しいコミットとして公開し直されます（TDnet の自動の取り込みでお知らせが増えた日も、同じように公開し直されます）。
 - 公開されたかどうかは、Actions の緑のチェックか、本番のページの中身（例: トップの「株主優待の新設・変更・廃止」の欄）で確かめます。
+- 公開に成功すると、IndexNow は前に成功したときからの変更をまとめて送るので、手で送り直す必要はありません。

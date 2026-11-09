@@ -1,4 +1,4 @@
-# C-1 GitHub Pages の公開が終わったら、変わったページを IndexNow（Bing など）に知らせる。
+# C-1 GitHub Pages の公開が終わったら、前に公開に成功したときから変わったページを IndexNow（Bing など）に知らせる。
 # 手で全ページを送るときは Actions の画面から「Run workflow」で all にチェックを入れる。
 name: IndexNow
 
@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   ping:
@@ -23,12 +24,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: 変わったページを送る
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
             python3 tools/indexnow.py --all
+            exit 0
+          fi
+          # 前に公開に成功したコミットから、いままでに変わったページを送る
+          # （途中のコミットの公開が失敗しても、そのコミットで変わったページが漏れないように）
+          BASE=$(gh api "repos/${{ github.repository }}/actions/runs?status=success&per_page=50" \
+            --jq "[.workflow_runs[] | select(.name == \"pages build and deployment\" and .head_sha != \"$HEAD_SHA\")][0].head_sha" || true)
+          if [ -n "$BASE" ] && [ "$BASE" != "null" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+            echo "前に公開に成功したコミット: $BASE"
+            python3 tools/indexnow.py --base "$BASE"
           else
+            echo "前に公開に成功したコミットが分からないので、直前のコミットとの差分を送ります"
             python3 tools/indexnow.py
           fi
