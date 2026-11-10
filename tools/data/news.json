@@ -1,6 +1,28 @@
 [
   {
     "auto": true,
+    "code": "6533",
+    "date": "2026-11-10",
+    "kind": "拡充",
+    "name": "オーケストラHD",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261110571867.pdf",
+    "summary": "",
+    "title": "上場10周年記念株主優待の増額及び今後の株主還元に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "1885",
+    "date": "2026-11-10",
+    "kind": "新設",
+    "name": "東亜建",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261109570264.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "9896",
     "date": "2026-11-09",
     "kind": "再開",
