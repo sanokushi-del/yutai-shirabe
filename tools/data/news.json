@@ -1,6 +1,57 @@
 [
   {
     "auto": true,
+    "code": "9635",
+    "date": "2026-11-11",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261110570758.pdf",
+    "summary": "",
+    "title": "武蔵野館臨時休館に伴う株主優待の取扱いについて"
+  },
+  {
+    "auto": true,
+    "code": "7167",
+    "date": "2026-11-11",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261110572316.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "7087",
+    "date": "2026-11-11",
+    "kind": "拡充",
+    "name": "ウイルテック",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261106567015.pdf",
+    "summary": "",
+    "title": "株式分割に伴う定款の一部変更および配当予想の修正ならびに株主優待制度の変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6087",
+    "date": "2026-11-11",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261111573022.pdf",
+    "summary": "",
+    "title": "2027年9月期の株主優待制度（予定）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4971",
+    "date": "2026-11-11",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261111572510.pdf",
+    "summary": "",
+    "title": "株式分割および株式分割に伴う定款の一部変更ならびに株主優待制度の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "6533",
     "date": "2026-11-10",
     "kind": "拡充",
