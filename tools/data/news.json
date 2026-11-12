@@ -1,6 +1,100 @@
 [
   {
     "auto": true,
+    "code": "9987",
+    "date": "2026-11-12",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261030561793.pdf",
+    "summary": "",
+    "title": "株式分割を踏まえた株主優待制度の変更および拡充に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6490",
+    "date": "2026-11-12",
+    "kind": "その他",
+    "name": "PILLAR",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261109569810.pdf",
+    "summary": "",
+    "title": "株式分割、株式分割に伴う定款の一部変更及び株主優待制度に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3744",
+    "date": "2026-11-12",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261110572016.pdf",
+    "summary": "",
+    "title": "株主優待制度の拡充に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3538",
+    "date": "2026-11-12",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261112576458.pdf",
+    "summary": "",
+    "title": "株主優待制度における対象条件変更のお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3474",
+    "date": "2026-11-12",
+    "kind": "新設",
+    "name": "G-FAC",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261112576259.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更（継続保有条件の導入及び進呈金額の拡充）並びに株主優待利用可能店舗の追加に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3465",
+    "date": "2026-11-12",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261112575777.pdf",
+    "summary": "",
+    "title": "配当予想の修正(増配）及び記念株主優待実施に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3355",
+    "date": "2026-11-12",
+    "kind": "拡充",
+    "name": "クリヤマHD",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261111573475.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3197",
+    "date": "2026-11-12",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261112575073.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "2982",
+    "date": "2026-11-12",
+    "kind": "再開",
+    "name": "ADワークスグループ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261111574634.pdf",
+    "summary": "",
+    "title": "株主優待制度の再導入に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "9635",
     "date": "2026-11-11",
     "kind": "その他",
