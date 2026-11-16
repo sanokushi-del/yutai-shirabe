@@ -1,6 +1,49 @@
 [
   {
     "auto": true,
+    "code": "7383",
+    "date": "2026-11-16",
+    "kind": "その他",
+    "name": "ネットプロHD",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261116581282.pdf",
+    "summary": "",
+    "title": "株主還元の考え方及び今後の株主優待の実施方針に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6571",
+    "date": "2026-11-16",
+    "kind": "その他",
+    "name": "キュービーネットHD",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261113580326.pdf",
+    "summary": "",
+    "title": "2027年６月期株主優待制度に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "281A",
+    "date": "2026-11-16",
+    "kind": "新設",
+    "name": "インフォメティス",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261116581069.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入及び議決権行使促進の取組みに関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "189A",
+    "date": "2026-11-16",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261116580942.pdf",
+    "summary": "",
+    "title": "株主優待の贈呈内容及び受取方法に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "9989",
     "date": "2026-11-13",
     "kind": "変更",
