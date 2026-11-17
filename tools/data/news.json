@@ -1,6 +1,37 @@
 [
   {
     "auto": true,
+    "code": "7453",
+    "date": "2026-11-17",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261116581652.pdf",
+    "summary": "",
+    "title": "株主優待の提供方法に関する変更について"
+  },
+  {
+    "auto": true,
+    "code": "3625",
+    "date": "2026-11-17",
+    "kind": "新設",
+    "name": "テックファーム",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261116581476.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "2871",
+    "date": "2026-11-17",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261117581946.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "7383",
     "date": "2026-11-16",
     "kind": "その他",
