@@ -1,6 +1,49 @@
 [
   {
     "auto": true,
+    "code": "8935",
+    "date": "2026-11-19",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261118583024.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部変更（拡充）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6099",
+    "date": "2026-11-19",
+    "kind": "新設",
+    "name": "エラン",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261119583304.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6034",
+    "date": "2026-11-19",
+    "kind": "新設",
+    "name": "MRT",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261119583281.pdf",
+    "summary": "",
+    "title": "株主優待制度の導入に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4725",
+    "date": "2026-11-19",
+    "kind": "その他",
+    "name": "CACHD",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261111572961.pdf",
+    "summary": "",
+    "title": "（開示事項の経過）創業60周年記念株主優待の詳細に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "3490",
     "date": "2026-11-18",
     "kind": "拡充",
