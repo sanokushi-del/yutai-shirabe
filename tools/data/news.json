@@ -1,6 +1,70 @@
 [
   {
     "auto": true,
+    "code": "6543",
+    "date": "2026-11-20",
+    "kind": "変更",
+    "name": "日宣",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261120584073.pdf",
+    "summary": "",
+    "title": "株主優待の一部内容変更（優待品目の変更）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4933",
+    "date": "2026-11-20",
+    "kind": "廃止",
+    "name": "Ine",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261119583737.pdf",
+    "summary": "",
+    "title": "2026年12月期の配当予想の修正（無配）及び株主優待制度の廃止に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4192",
+    "date": "2026-11-20",
+    "kind": "その他",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261120583883.pdf",
+    "summary": "",
+    "title": "株主優待制度の実施に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4124",
+    "date": "2026-11-20",
+    "kind": "変更",
+    "name": "大阪油化工業",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261119583138.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3479",
+    "date": "2026-11-20",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261120584292.pdf",
+    "summary": "",
+    "title": "株主優待制度の拡充に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3083",
+    "date": "2026-11-20",
+    "kind": "変更",
+    "name": "スターシーズ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261120583985.pdf",
+    "summary": "",
+    "title": "（開示事項の変更）「継続的な株主優待制度の導入に関するお知らせ」の一部変更に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "8935",
     "date": "2026-11-19",
     "kind": "拡充",
