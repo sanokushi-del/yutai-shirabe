@@ -323,6 +323,7 @@ blockquote p{margin:0}
     }
 }
 .chip-ended{padding:0 7px;border:1px solid var(--warn-ink);background:var(--warn);color:var(--warn-ink)}
+.chip-note{padding:0 7px;border:1px solid var(--border);background:var(--surface);color:var(--muted)}
 /* pp:start 改善案12（tools/postprocess.py が足す部分。手で直さないでください） */
 .tiers h2{margin-top:0}
 .tiers .facts{margin-bottom:8px}
