@@ -3,6 +3,43 @@
   // 条件で探す欄。assets/companies.js の一覧を、ブラウザの中で絞り込む（どこにも送らない・保存しない）。
   var data = window.YUTAI_COMPANIES || [];
   function $(id) { return document.getElementById(id); }
+  // トップの「次の権利付き最終日」の札（改善案15 G-5）。札は作ったときの値なので、日本時間の今日以降でいちばん早い日に書き換える。
+  // 日付と社数は ul.stats の data-upcoming（"2026-11-26:33,2026-12-28:20"）に書いてある。残りが無ければ社数を消して月別カレンダーへのリンクにする。
+  // JavaScript が無いときは書いてあるままの札が出る。ブラウザの中だけで計算する（送信も保存もしない）。
+  (function () {
+    var stats = document.querySelector('ul.stats[data-upcoming]');
+    var tile = stats && stats.querySelector('li.next-day');
+    var line = tile && tile.querySelector('a.stat-line');
+    var value = line && line.querySelector('.stat-value');
+    if (!value) { return; }
+    var todayText = '';
+    try {
+      todayText = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    } catch (e) { /* 下の、ブラウザの日付を使う */ }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(todayText)) {
+      var d = new Date();
+      todayText = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    }
+    var days = String(stats.getAttribute('data-upcoming') || '').split(',');
+    var pick = null;
+    for (var i = 0; i < days.length; i++) {
+      var m = /^(\d{4})-(\d{2})-(\d{2}):(\d+)$/.exec(days[i]);
+      if (m && (m[1] + '-' + m[2] + '-' + m[3]) >= todayText) { pick = m; break; }
+    }
+    var sub = line.querySelector('.stat-sub');
+    if (pick) {
+      var week = ['日', '月', '火', '水', '木', '金', '土'][new Date(Date.UTC(Number(pick[1]), Number(pick[2]) - 1, Number(pick[3]))).getUTCDay()];
+      value.textContent = Number(pick[2]) + '月' + Number(pick[3]) + '日（' + week + '）';
+      if (sub) { sub.textContent = String(Number(pick[4])).replace(/\B(?=(\d{3})+$)/g, ',') + '社'; }
+      line.setAttribute('href', '#last-' + pick[1] + '-' + pick[2] + '-' + pick[3]);
+    } else {
+      var cal = stats.getAttribute('data-calendar');
+      if (!cal) { tile.hidden = true; return; }
+      value.textContent = '月別カレンダーを見る';
+      if (sub && sub.parentNode) { sub.parentNode.removeChild(sub); }
+      line.setAttribute('href', cal);
+    }
+  })();
   var out = $('f-results');
   if (!out) { return; }
   var FIRST = 100;
@@ -19,7 +56,10 @@
   var matched = [];
   var f = { text: $('f-text'), month: $('f-month'), shares: $('f-shares'), hold: $('f-hold'), cat: $('f-cat'),
             amount: $('f-amount'), sort: $('f-sort'), dir: $('f-dir') };
-  function norm(s) { return String(s).normalize('NFKC').toLowerCase().replace(/\s+/g, ''); }
+  // ひらがなはカタカナにそろえる（入力と会社名・品目の語の両方に同じ関数を通す。「わたみ」で「ワタミ」が当たる。改善案15 G-7）
+  function norm(s) {
+    return String(s).normalize('NFKC').toLowerCase().replace(/\s+/g, '').replace(/[ぁ-ゖ]/g, function (ch) { return String.fromCharCode(ch.charCodeAt(0) + 0x60); });
+  }
   function num(s) {
     var t = String(s).normalize('NFKC').replace(/[,\s]/g, '');
     return /^\d+$/.test(t) ? parseInt(t, 10) : NaN;
@@ -102,6 +142,36 @@
     td.textContent = '';
     td.appendChild(chip('cat-' + (CAT_SLUGS[c.p] || CAT_SLUGS['記載なし']), c.p));
   }
+  // 0件の案内（改善案15 G-7）。会社名・コードの欄に入力があって 0社のときだけ、載せている会社の範囲と、品目の語に当たる一覧へのリンクを出す。
+  // 品目の語と行き先は #f-empty の data-items（Python の ITEM_PAGES から作る。一覧が作られているものだけ）。リンクは list/ の一覧だけ。
+  var EMPTY = $('f-empty');
+  var ITEMS = [];
+  try { ITEMS = JSON.parse((EMPTY && EMPTY.getAttribute('data-items')) || '[]'); } catch (e) { ITEMS = []; }
+  function emptyGuide() {
+    if (!EMPTY) { return; }
+    var typed = norm(f.text.value);
+    EMPTY.textContent = '';
+    if (matched.length || !typed) { EMPTY.hidden = true; return; }
+    var p = document.createElement('p');
+    p.textContent = 'このサイトに載せているのは、有価証券報告書に株主優待の記載がある上場会社だけです。優待のない会社・優待をやめた会社は出ません。';
+    EMPTY.appendChild(p);
+    var hits = ITEMS.filter(function (it) {
+      return /^list\/[a-z0-9-]+\.html$/.test(String(it.h)) && (it.k || []).some(function (word) {
+        var w = norm(word);
+        return w && (typed.indexOf(w) >= 0 || (typed.length >= 2 && w.indexOf(typed) >= 0));
+      });
+    });
+    if (hits.length) {
+      var q = document.createElement('p');
+      q.appendChild(document.createTextNode('品目から探す: '));
+      hits.forEach(function (it, i) {
+        if (i) { q.appendChild(document.createTextNode(' ・ ')); }
+        var a = document.createElement('a'); a.href = it.h; a.textContent = it.l; q.appendChild(a);
+      });
+      EMPTY.appendChild(q);
+    }
+    EMPTY.hidden = false;
+  }
   function render() {
     out.textContent = '';
     var table = document.createElement('table');
@@ -115,7 +185,7 @@
       var tr = document.createElement('tr');
       cell(tr, 0, c.c);
       var td = cell(tr, NAME_COLUMN, ''); var a = document.createElement('a');
-      a.href = 'c/' + c.c + '.html'; a.textContent = c.n; td.appendChild(a); td.className = 'name';
+      a.href = 'c/' + c.c + '.html'; a.textContent = c.n; td.appendChild(a); td.className = 'name'; if (c.e) { var chip = document.createElement('span'); chip.className = 'chip chip-ended'; chip.textContent = c.e; td.appendChild(document.createTextNode(' ')); td.appendChild(chip); }
       a.addEventListener('click', function () {
         var cur = location.pathname + location.search + location.hash;
         var y = window.pageYOffset || window.scrollY || 0;
@@ -137,6 +207,7 @@
     if (matched.length) { out.appendChild(wrap); }
     $('f-count').textContent = matched.length.toLocaleString('ja-JP') + '社が当てはまります（全' + data.length.toLocaleString('ja-JP') + '社）。' +
       (matched.length > shown ? ' 先頭の' + shown.toLocaleString('ja-JP') + '社を表示しています。' : '');
+    emptyGuide();
     var more = $('f-more');
     more.hidden = matched.length <= shown;
     more.textContent = 'さらに表示（残り' + Math.max(0, matched.length - shown).toLocaleString('ja-JP') + '社）';
