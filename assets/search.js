@@ -42,7 +42,8 @@
   })();
   var out = $('f-results');
   if (!out) { return; }
-  var FIRST = 100;
+  var FIRST = 20;             // 最初に出す件数（Python の site.FIRST_SHOWN）。条件・並べ替えを変えたらここへ戻す
+  var MORE = 100;               // 「さらに表示」で足す件数（Python の site.MORE_SHOWN）
   var THIS_YEAR = 2026;          // サイトを作った日の年（書き出し時に入る）。表の中の日付はこの年なら年を省く
   var HEADERS = ["コード", "会社名", "基準日", "次の権利付き最終日", "必要株数", "継続保有", "主な種類", "年額の推定"];         // 表の見出し。各セルの data-label（スマホのカードの項目名）にも使う
   var NAME_COLUMN = 1;
@@ -210,7 +211,8 @@
     emptyGuide();
     var more = $('f-more');
     more.hidden = matched.length <= shown;
-    more.textContent = 'さらに表示（残り' + Math.max(0, matched.length - shown).toLocaleString('ja-JP') + '社）';
+    // 足す数が分かる文言（残りが MORE 以上なら「さらに100社を表示」、少なければ「さらにN社を表示」。改善案16 M-4）
+    more.textContent = 'さらに' + Math.min(MORE, Math.max(0, matched.length - shown)).toLocaleString('ja-JP') + '社を表示';
   }
   function search() {
     var q = { text: norm(f.text.value), month: f.month.value === '' ? 0 : parseInt(f.month.value, 10), shares: num(f.shares.value),
@@ -298,7 +300,7 @@
     search();
     writeHash(true);
   });
-  $('f-more').addEventListener('click', function () { shown += FIRST; render(); });
+  $('f-more').addEventListener('click', function () { shown += MORE; render(); });
   var copyBtn = $('f-copy'), copyStatus = $('f-copy-status');
   function setCopyStatus(msg) { if (copyStatus) { copyStatus.textContent = msg; } }
   function fallbackCopyUrl(val) {
