@@ -1,6 +1,36 @@
 [
   {
     "auto": true,
+    "code": "4463",
+    "date": "2026-11-26",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261126586426.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "4366",
+    "date": "2026-11-26",
+    "kind": "拡充",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261110570987.pdf",
+    "summary": "",
+    "title": "株主優待制度の拡充（新設枠の追加）に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "3242",
+    "date": "2026-11-26",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261126586672.pdf",
+    "summary": "",
+    "title": "株主優待制度の一部内容変更に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "9731",
     "date": "2026-11-25",
     "kind": "変更",
