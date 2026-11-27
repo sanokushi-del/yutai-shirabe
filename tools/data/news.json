@@ -1,6 +1,49 @@
 [
   {
     "auto": true,
+    "code": "8006",
+    "date": "2026-11-27",
+    "kind": "変更",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261127587425.pdf",
+    "summary": "",
+    "title": "株主優待制度の変更に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "7689",
+    "date": "2026-11-27",
+    "kind": "新設",
+    "name": "コパ",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261127587273.pdf",
+    "summary": "",
+    "title": "株主優待制度の新設に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6706",
+    "date": "2026-11-27",
+    "kind": "その他",
+    "name": "電気興",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261127587716.pdf",
+    "summary": "",
+    "title": "株主優待制度の優待内容に関するお知らせ"
+  },
+  {
+    "auto": true,
+    "code": "6072",
+    "date": "2026-11-27",
+    "kind": "新設",
+    "name": "ERTH Group",
+    "source_label": "TDnet",
+    "source_url": "https://www.release.tdnet.info/inbs/140120261127587602.pdf",
+    "summary": "",
+    "title": "株主優待制度の新設に関するお知らせ"
+  },
+  {
+    "auto": true,
     "code": "4463",
     "date": "2026-11-26",
     "kind": "変更",
